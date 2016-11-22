@@ -1,17 +1,17 @@
 import TI.*;
 /**
- * De drivehandler class bevat alle methoden om de boebot te laten rijden.
+ * De Engines class bevat alle methoden om de boebot te laten rijden.
  * 
  * @author Groep B1 
- * @version 0.1
+ * @version 0.2
  */
-public class DriveHandler
+public class Engines
 {
     private int _currentSpeed;
     private Servo _left;
-    private Servo _right;
-
-    public DriveHandler()
+    private Servo _right; 
+    
+    public Engines()
     {
         _currentSpeed = 0;
         _left = new Servo(12);
@@ -22,11 +22,10 @@ public class DriveHandler
      * Zet de speed van beide motoren naar de ingevulde waarde.
      * @param speed     Set speed of bot, domain -200 - 200
      */
-    public void setSpeed(int speed)
-    {      
-        // TODO: make casual
-        leftSpeed(speed);
-        rightSpeed(speed);
+    public void setSpeed(Speed speed)
+    {
+        leftSpeed(speed.Left);
+        rightSpeed(speed.Right);
     }
 
     /*
@@ -34,17 +33,16 @@ public class DriveHandler
      */
     public void breakBot()
     {
-        leftSpeed(0);
-        rightSpeed(0);
+        setSpeed(Speed.STOP);
     }
 
     /*
      * Draai de bot, positief is naar rechts, negatief naar links
      */
-    public void turn(int spinSpeed)
+    public void turn(Speed spinSpeed)
     {
-        leftSpeed(-spinSpeed);
-        rightSpeed(spinSpeed);
+        leftSpeed(-spinSpeed.Left);
+        rightSpeed(spinSpeed.Right);
     }
 
     /*
@@ -52,10 +50,10 @@ public class DriveHandler
      * @param degrees       Graden om te draaien
      * @param speed         Snelheid om mee te draaien
      */
-    public void turnDegrees(int degrees, int speed)
+    public void turnDegrees(int degrees, Speed speed)
     {
-        if (speed == 0 || degrees == 0) return;
-        double waitTime = (degrees / 90d) * (100000d/speed);
+        if (speed == Speed.STOP || degrees == 0) return;
+        double waitTime = (degrees / 90d) * (100000d/speed.Left);
         turn(speed);        
         BoeBot.wait((int) waitTime);
         breakBot();
@@ -66,8 +64,7 @@ public class DriveHandler
      * @param speed     Snelheid
      */
     public void leftSpeed(int speed)
-    {
-        speed = correctSpeed(speed);       
+    {    
         _left.update(1500 - speed);
     }
 
@@ -77,18 +74,6 @@ public class DriveHandler
      */
     public void rightSpeed(int speed)
     {
-        speed = correctSpeed(speed);
         _right.update(1500 + speed);
-    }
-    
-    /*
-     * Corrigeer speed voor als deze buiten domein ligt.
-     * @param speed     Input speed.
-     */
-    private int correctSpeed(int speed)
-    {
-        if (speed > 200) return 200;
-        else if (speed < -200) return -200;
-        else return speed;
     }
 }
