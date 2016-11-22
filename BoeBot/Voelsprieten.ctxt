@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=pinLeft\ pinRight
+comment0.target=Voelsprieten(int,\ int)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Voelsprieten\r\n
+comment1.params=
+comment1.target=void\ collisionLeft()
+comment2.params=
+comment2.target=void\ collisionRight()
+comment3.params=
+comment3.target=void\ collisionBoth()
+numComments=4
