@@ -34,7 +34,7 @@ public class Engines
      */
     public static void turn(Turn spinSpeed)
     {
-        leftSpeed(-spinSpeed.Left);
+        leftSpeed(spinSpeed.Left);
         rightSpeed(spinSpeed.Right);
     }
 
@@ -43,13 +43,17 @@ public class Engines
      * @param degrees       Graden om te draaien
      * @param speed         Snelheid om mee te draaien
      */
-    public static void turnDegrees(int degrees, Turn speed)
+    public static void turnDegrees(int degrees)
     {
         if (degrees == 0) return;
-        double waitTime = (degrees / 90d) * (100000d/speed.Left);
-        turn(speed);        
-        BoeBot.wait((int) waitTime);
+        turn(Turn.LEFT);        
+        BoeBot.wait(calcWaitTime(degrees));
         breakBot();
+    }
+    
+    public static int calcWaitTime(int degrees)
+    {
+        return 25 + (int) (340 * (degrees/90d));
     }
 
     /*

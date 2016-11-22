@@ -8,12 +8,18 @@ public class Startup
 {
     public static void main(String[] args)
     {
+        /*
         EnginePaternBuilder b = new EnginePaternBuilder();
         b.addStep(new EngineStep(Speed.MAX, 1000));
         b.addStep(new EngineStep(Speed.MAX_REVERSE, 1000));
         b.addStep(new EngineStep(Speed.LEFT, 1000));
         b.addStep(new EngineStep(Speed.RIGHT, 1000));
         b.run();
-        b.stop();
+         */
+        while (true)
+        {
+            Engines.turnDegrees(90);
+            BoeBot.wait(2000);
+        }
     }
 }

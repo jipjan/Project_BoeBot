@@ -1,12 +1,16 @@
 #BlueJ class context
-comment0.params=step
-comment0.target=void\ addStep(EngineStep)
+comment0.params=
+comment0.target=EnginePaternBuilder()
 comment1.params=
-comment1.target=void\ clear()
-comment2.params=
-comment2.target=void\ stop()
+comment1.target=EnginePaternBuilder\ getInstance()
+comment2.params=step
+comment2.target=void\ addStep(EngineStep)
 comment3.params=
-comment3.target=void\ run()
+comment3.target=void\ clear()
 comment4.params=
-comment4.target=void\ runStep()
-numComments=5
+comment4.target=void\ stop()
+comment5.params=repeat
+comment5.target=void\ run(boolean)
+comment6.params=repeat
+comment6.target=void\ runStep(boolean)
+numComments=7
