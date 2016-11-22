@@ -8,11 +8,6 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        DriveHandler handler = new DriveHandler();
 
-        while (true) 
-        {
-            handler.turn(200);
-        }
     }
 }
