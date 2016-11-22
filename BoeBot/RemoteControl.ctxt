@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=
+comment0.target=int\ getRemoteInput()
+comment1.params=value
+comment1.target=java.lang.Boolean\ toBit(int)
+comment2.params=values
+comment2.target=int\ convertToInt(int[])
+numComments=3
