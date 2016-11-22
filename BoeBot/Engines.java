@@ -7,22 +7,15 @@ import TI.*;
  */
 public class Engines
 {
-    private int _currentSpeed;
-    private Servo _left;
-    private Servo _right; 
-    
-    public Engines()
-    {
-        _currentSpeed = 0;
-        _left = new Servo(12);
-        _right = new Servo(13);
-    }    
+    private static int _currentSpeed = 0;
+    private static Servo _left = new Servo(12);
+    private static Servo _right = new Servo(13); 
 
     /*
      * Zet de speed van beide motoren naar de ingevulde waarde.
      * @param speed     Set speed of bot, domain -200 - 200
      */
-    public void setSpeed(Speed speed)
+    public static void setSpeed(Speed speed)
     {
         leftSpeed(speed.Left);
         rightSpeed(speed.Right);
@@ -31,7 +24,7 @@ public class Engines
     /*
      * Zet de bot abrupt stil
      */
-    public void breakBot()
+    public static void breakBot()
     {
         setSpeed(Speed.STOP);
     }
@@ -39,7 +32,7 @@ public class Engines
     /*
      * Draai de bot, positief is naar rechts, negatief naar links
      */
-    public void turn(Speed spinSpeed)
+    public static void turn(Turn spinSpeed)
     {
         leftSpeed(-spinSpeed.Left);
         rightSpeed(spinSpeed.Right);
@@ -50,9 +43,9 @@ public class Engines
      * @param degrees       Graden om te draaien
      * @param speed         Snelheid om mee te draaien
      */
-    public void turnDegrees(int degrees, Speed speed)
+    public static void turnDegrees(int degrees, Turn speed)
     {
-        if (speed == Speed.STOP || degrees == 0) return;
+        if (degrees == 0) return;
         double waitTime = (degrees / 90d) * (100000d/speed.Left);
         turn(speed);        
         BoeBot.wait((int) waitTime);
@@ -63,7 +56,7 @@ public class Engines
      * Zet snelheid van linker wiel.
      * @param speed     Snelheid
      */
-    public void leftSpeed(int speed)
+    public static void leftSpeed(int speed)
     {    
         _left.update(1500 - speed);
     }
@@ -72,7 +65,7 @@ public class Engines
      * Zet snelheid van rechter wiel.
      * @param speed     Snelheid
      */
-    public void rightSpeed(int speed)
+    public static void rightSpeed(int speed)
     {
         _right.update(1500 + speed);
     }
