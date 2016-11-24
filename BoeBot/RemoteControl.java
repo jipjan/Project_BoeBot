@@ -7,12 +7,12 @@ public class RemoteControl
         System.out.println("Listening...");
         while(true)
         {
-            int pulseLen = BoeBot.pulseIn(0, false, 6000);
+            int pulseLen = BoeBot.pulseIn(Constants.IFR_PIN, false, 6000);
             if (pulseLen > 2000)
             {
                 int values[] = new int[12];
                 for(int i = 0; i < 12; i++)
-                    values[i] = BoeBot.pulseIn(0,false,20000);
+                    values[i] = BoeBot.pulseIn(Constants.IFR_PIN, false,20000);
                 return convertToInt(values);
             }            
             BoeBot.wait(10);

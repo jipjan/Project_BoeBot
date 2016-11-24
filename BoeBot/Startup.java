@@ -16,10 +16,14 @@ public class Startup
         b.addStep(new EngineStep(Speed.RIGHT, 1000));
         b.run();
          */
+        /*
         while (true)
         {
-            Engines.turnDegrees(90);
-            BoeBot.wait(2000);
+        RemoteControlOverride.driveLikeAMofo();
+        BoeBot.wait(200);
         }
+         */
+        while (true)
+            RemoteControlOverride.driveLikeAMofo();
     }
 }

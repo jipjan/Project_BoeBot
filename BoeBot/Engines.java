@@ -26,6 +26,7 @@ public class Engines
      */
     public static void breakBot()
     {
+        EnginePaternBuilder.getInstance().stop();
         setSpeed(Speed.STOP);
     }
 

@@ -21,13 +21,15 @@ public class EnginePaternBuilder
         return _instance;
     }
 
-    public void addStep(EngineStep step)
+    public void addSteps(EngineStep... steps)
     {
-        _stepsToRun.add(step);
+        for (int i = 0; i < steps.length; i++)
+            _stepsToRun.add(steps[i]);
     }
 
     public void clear()
     {
+        stop();
         _stepsToRun.clear();
     }
 
@@ -37,6 +39,8 @@ public class EnginePaternBuilder
         _currentStep = 0;
         _timer.shutdown();
         Engines.setSpeed(Speed.STOP);
+        
+        
     }
 
     public void run(boolean repeat)
