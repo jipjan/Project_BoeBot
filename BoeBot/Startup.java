@@ -8,13 +8,9 @@ public class Startup
 {
     public static void main(String[] args)
     {        
-        Whiskers.startDetection();
-        
-        /*
-        Ultrasoon.startDetection();
+        CollisionDetection.start();        
         
         while (true)
-            RemoteControlOverride.drive();            
-            */
+            RemoteControlOverride.drive();
     }
 }

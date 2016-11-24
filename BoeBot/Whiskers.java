@@ -20,7 +20,7 @@ public class Whiskers
         {
             System.out.println("Already running, returning..");            
             return;
-        }
+        }      
 
         _whiskers = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
                 collisionCheck(
@@ -36,8 +36,15 @@ public class Whiskers
         else if (left)
             System.out.println("Collision Left");                  
         else if (right)
-            System.out.println("Collision Right");      
+            System.out.println("Collision Right");    
+        reset();
     }
+
+    private static void reset()
+    {
+        BoeBot.digitalWrite(Constants.WHISKER_LEFT_PIN, true);
+        BoeBot.digitalWrite(Constants.WHISKER_RIGHT_PIN, true);
+    }    
 
     public static void stopDetection()
     {

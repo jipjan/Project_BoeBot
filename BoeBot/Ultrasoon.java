@@ -35,6 +35,11 @@ public class Ultrasoon
     
     private static void collisionCheck(int pulse)
     {
+        if (pulse == -2)
+        {
+            System.out.println("Ultrasoon not connected, or is experiencing issues...");
+            return;
+        }
         if (pulse < Constants.ULTRASOON_DISTANCE)
         {
             System.out.println("Collision Imminent, stopping...");
