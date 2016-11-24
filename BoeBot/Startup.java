@@ -7,12 +7,10 @@ import TI.*;
 public class Startup
 {
     public static void main(String[] args)
-    {        
-        
+    {
         CollisionDetection.start();        
         
         while (true)
-            RemoteControlOverride.drive();
-            
+            RemoteControlOverride.drive();            
     }
 }

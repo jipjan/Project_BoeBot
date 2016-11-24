@@ -16,6 +16,7 @@ public class Engines
      */
     public static void setSpeed(Speed speed)
     {        
+        BoardLights.stop();
         leftSpeed(speed.Left);
         rightSpeed(speed.Right);
     }

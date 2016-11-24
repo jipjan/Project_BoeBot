@@ -11,6 +11,7 @@ import java.util.concurrent.*;
 public class Ultrasoon
 {
     private static ScheduledFuture<?> _ultrasoon;
+    private static boolean _collided = false;
 
     public static void startDetection()
     {      
@@ -32,7 +33,7 @@ public class Ultrasoon
                 collisionCheck(BoeBot.pulseIn(Constants.ULTRASOON_OUT_PIN, true, 10000));                
             }, 0, 100, MILLISECONDS);     
     }
-    
+
     private static void collisionCheck(int pulse)
     {
         if (pulse == -2)
@@ -42,9 +43,19 @@ public class Ultrasoon
         }
         if (pulse < Constants.ULTRASOON_DISTANCE)
         {
-            System.out.println("Collision Imminent, stopping...");
-            Engines.breakBot();
-        }        
+            if (!_collided)
+            {
+                _collided = true;
+                System.out.println("Collision Imminent, stopping..."+pulse);               
+                Engines.breakBot();
+                BoardLights.alarmLights();
+            }
+        }
+        else
+        {  
+            _collided = false;
+            BoardLights.stop();
+        }
     }
 
     public static void stopDetection()

@@ -2,7 +2,7 @@ public class CollisionDetection
 {
     public static void start()
     {
-        Whiskers.startDetection();
+        //Whiskers.startDetection();
         Ultrasoon.startDetection();
     }
 }
