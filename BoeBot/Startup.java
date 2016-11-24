@@ -8,7 +8,9 @@ public class Startup
 {
     public static void main(String[] args)
     {
+        Ultrasoon.startDetection();
+        
         while (true)
-            RemoteControlOverride.drive();
+            RemoteControlOverride.drive();            
     }
 }

@@ -1,4 +1,6 @@
 import TI.*;
+import static java.util.concurrent.TimeUnit.*;
+import java.util.concurrent.*;
 
 /**
  * Write a description of class Ultrasoon here.
@@ -8,18 +10,40 @@ import TI.*;
  */
 public class Ultrasoon
 {
-    public static void main(String[] args)
-    {
-        System.out.println("Starting..");
-        while(true)
+    private static ScheduledFuture<?> _blinker;
+
+    public static void startDetection()
+    {      
+        System.out.println("Starting Ultrasoon Sensor..");
+
+        if (_blinker != null && !_blinker.isDone())
         {
-            BoeBot.digitalWrite(0, true);
-            BoeBot.wait(1);
-            BoeBot.digitalWrite(0, false);
-            
-            int pulse = BoeBot.pulseIn(1, true, 10000);
-            System.out.println("Pulse: " + pulse);
-            BoeBot.wait(50);
+            System.out.println("Already running, returning..");            
+            return;
         }
+
+        _blinker = TimerHandler.Timer.scheduleWithFixedDelay(
+            () -> 
+            {
+                BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, true);
+                BoeBot.wait(1);
+                BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, false);
+
+                collisionCheck(BoeBot.pulseIn(Constants.ULTRASOON_OUT_PIN, true, 10000));                
+            }, 0, 100, MILLISECONDS);     
+    }
+    
+    private static void collisionCheck(int pulse)
+    {
+        if (pulse < Constants.ULTRASOON_DISTANCE)
+        {
+            System.out.println("Collision Imminent, stopping...");
+            Engines.breakBot();
+        }        
+    }
+
+    public static void stopDetection()
+    {
+        if (_blinker != null) _blinker.cancel(true);
     }
 }

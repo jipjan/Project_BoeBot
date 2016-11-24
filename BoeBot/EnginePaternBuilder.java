@@ -8,13 +8,11 @@ public class EnginePaternBuilder
 
     private ArrayList<EngineStep> _stepsToRun;
     private ScheduledStep _currentStep;
-    private ScheduledExecutorService _timer;
 
     private EnginePaternBuilder()
     {
         _stepsToRun = new ArrayList<EngineStep>();
         _currentStep = new ScheduledStep();
-        _timer = Executors.newScheduledThreadPool(1);
     }
 
     public static EnginePaternBuilder getInstance()
@@ -50,7 +48,7 @@ public class EnginePaternBuilder
 
         _currentStep.Step++;
 
-        _currentStep.ScheduledStep = _timer.schedule(() ->
+        _currentStep.ScheduledStep = TimerHandler.Timer.schedule(() ->
             {   
                 if (_currentStep.Step < _stepsToRun.size())
                     run(repeat);

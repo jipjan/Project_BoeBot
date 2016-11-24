@@ -1,8 +1,10 @@
 #BlueJ class context
-comment0.params=pin\ time
-comment0.target=LED(int,\ int)
+comment0.params=pin
+comment0.target=Led(int)
 comment1.params=
-comment1.target=void\ switchLED()
-comment2.params=
-comment2.target=void\ blinkLED()
-numComments=3
+comment1.target=void\ switchLed()
+comment2.params=timeout
+comment2.target=void\ startBlink(int)
+comment3.params=
+comment3.target=void\ cancelBlink()
+numComments=4

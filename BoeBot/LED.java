@@ -1,36 +1,34 @@
 import TI.*;
+import static java.util.concurrent.TimeUnit.*;
+import java.util.concurrent.*;
 
 /**
- * Write a description of class LED here.
+ * Class om LEDs aan te sturen op de boebot.
  * 
- * @author Zwen van Erkelens 
- * @version (a version number or a date)
+ * @author Groep B1
  */
-public class LED
+public class Led
 {
     private int _pin;
-    private int _time;
-    private boolean _status;
+    private ScheduledFuture<?> _blinker;
 
-    public LED(int pin, int time)
+    public Led(int pin)
     {
         _pin = pin;
-        _status = false;
-        _time = time;
     }
 
-    public void switchLED()
+    public void switchLed()
     {
-        _status = !_status;
-        BoeBot.digitalWrite(_pin, _status);
+        BoeBot.digitalWrite(_pin, !BoeBot.digitalRead(_pin));
     }
 
-    public void blinkLED()
+    public void startBlink(int timeout)
     {
-        while(true)
-        {
-            switchLED();
-            BoeBot.wait(_time);
-        }
+        _blinker = TimerHandler.Timer.scheduleWithFixedDelay(() -> switchLed(), 0, timeout, MILLISECONDS);
+    }
+    
+    public void cancelBlink()
+    {
+        _blinker.cancel(true);
     }
 }
