@@ -62,9 +62,8 @@ public class EnginePaternBuilder
                         run(repeat);
                     }
                     else
-                    {
                         stop();
-                    }
+
                 }
             }, step.Duration, MILLISECONDS);
     }

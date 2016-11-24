@@ -6,10 +6,9 @@ import TI.*;
  * @version 0.2
  */
 public class Engines
-{
-    private static int _currentSpeed = 0;
-    private static Servo _left = new Servo(12);
-    private static Servo _right = new Servo(13); 
+{   
+    private static Servo _left = new Servo(Constants.SERVO_LEFT);
+    private static Servo _right = new Servo(Constants.SERVO_RIGHT); 
 
     /*
      * Zet de speed van beide motoren naar de ingevulde waarde.
