@@ -1,19 +1,21 @@
 import java.util.*;
 import static java.util.concurrent.TimeUnit.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.*;
 
 public class EnginePaternBuilder
 {
     private static EnginePaternBuilder _instance;   
 
-    private ArrayList<EngineStep> _stepsToRun = new ArrayList<EngineStep>();
-    private int _currentStep = 0;
-    private ScheduledExecutorService _timer = Executors.newScheduledThreadPool(1);
-    private boolean _stop = false;
+    private ArrayList<EngineStep> _stepsToRun;
+    private ScheduledStep _currentStep;
+    private ScheduledExecutorService _timer;
 
-    private EnginePaternBuilder() { }
+    private EnginePaternBuilder()
+    {
+        _stepsToRun = new ArrayList<EngineStep>();
+        _currentStep = new ScheduledStep();
+        _timer = Executors.newScheduledThreadPool(1);
+    }
 
     public static EnginePaternBuilder getInstance()
     {
@@ -34,39 +36,36 @@ public class EnginePaternBuilder
     }
 
     public void stop()
-    {
-        _stop = true;
-        _currentStep = 0;
-        _timer.shutdown();
-        Engines.setSpeed(Speed.STOP);
-        
-        
+    {     
+        if (_currentStep.ScheduledStep != null)
+            _currentStep.ScheduledStep.cancel(true);
+        _currentStep.Step = 0;
     }
 
     public void run(boolean repeat)
-    {
-        _stop = false;
-        runStep(repeat);
-    }
-
-    private void runStep(boolean repeat)
-    {        
-        EngineStep step = _stepsToRun.get(_currentStep);
+    {   
+        EngineStep step = _stepsToRun.get(_currentStep.Step);
+        // Set Speed for current step
         Engines.setSpeed(step.Speed);
-        _timer.schedule(() ->
-            {
-                if (_stop) return;
-                _currentStep++;
-                if (_currentStep < _stepsToRun.size())
+
+        _currentStep.Step++;
+
+        _currentStep.ScheduledStep = _timer.schedule(() ->
+            {   
+                if (_currentStep.Step < _stepsToRun.size())
                     run(repeat);
                 else
-                if (repeat)
                 {
-                    _currentStep = 0;
-                    run(repeat);
+                    if (repeat)
+                    {
+                        _currentStep.Step = 0;
+                        run(repeat);
+                    }
+                    else
+                    {
+                        stop();
+                    }
                 }
-                else
-                    Engines.setSpeed(Speed.STOP);
             }, step.Duration, MILLISECONDS);
     }
 }

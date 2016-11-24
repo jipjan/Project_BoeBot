@@ -11,8 +11,6 @@ public class DrivePatern
             new EngineStep(Speed.LEFT, Engines.calcWaitTime(90))
         );
         _builder.run(true);
-        
-        
     }
 
     public static void infinite()

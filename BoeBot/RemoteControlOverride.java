@@ -3,10 +3,12 @@
 public class RemoteControlOverride
 {
    
-    public static void driveLikeAMofo()
+    public static void drive()
     {
-        switch (RemoteControl.getRemoteInput())
-        {
+        int input = RemoteControl.getRemoteInput();
+        Engines.breakBot();
+        switch (input)
+        {            
             case 0:
             Engines.setSpeed(Speed.HALF_LEFT);
             break;
@@ -23,7 +25,7 @@ public class RemoteControlOverride
             Engines.setSpeed(Speed.LEFT);
             break;
             
-            case 4: 
+            case 4:            
             Engines.breakBot();
             break;
             
@@ -48,11 +50,19 @@ public class RemoteControlOverride
             break;
             
             case 9:
-            DrivePatern.infinite();
+            Engines.turnDegrees(180);            
             break;
             
             case 23:
-            Engines.turnDegrees(180);
+            DrivePatern.infinite();
+            break;
+            
+            case 18:
+            Engines.turnDegrees(-90);
+            break;
+            
+            case 19:
+            Engines.turnDegrees(90);
             break;
         }
     }

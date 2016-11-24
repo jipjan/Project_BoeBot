@@ -16,7 +16,7 @@ public class Engines
      * @param speed     Set speed of bot, domain -200 - 200
      */
     public static void setSpeed(Speed speed)
-    {
+    {        
         leftSpeed(speed.Left);
         rightSpeed(speed.Right);
     }
@@ -47,11 +47,16 @@ public class Engines
     public static void turnDegrees(int degrees)
     {
         if (degrees == 0) return;
-        turn(Turn.LEFT);        
-        BoeBot.wait(calcWaitTime(degrees));
+        
+        if (degrees > 0)
+            turn(Turn.LEFT);
+        else
+            turn(Turn.RIGHT);
+            
+        BoeBot.wait(calcWaitTime(Math.abs(degrees)));
         breakBot();
     }
-    
+
     public static int calcWaitTime(int degrees)
     {
         return 25 + (int) (340 * (degrees/90d));

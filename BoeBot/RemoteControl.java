@@ -12,7 +12,7 @@ public class RemoteControl
             {
                 int values[] = new int[12];
                 for(int i = 0; i < 12; i++)
-                    values[i] = BoeBot.pulseIn(Constants.IFR_PIN, false,20000);
+                    values[i] = BoeBot.pulseIn(Constants.IFR_PIN, false, 20000);
                 return convertToInt(values);
             }            
             BoeBot.wait(10);
@@ -33,6 +33,7 @@ public class RemoteControl
             toReturn = toReturn << 1;
             if (toBit(values[i])) toReturn |= 1;            
         }
+        System.out.println(toReturn);
         return toReturn;
     }
 }
