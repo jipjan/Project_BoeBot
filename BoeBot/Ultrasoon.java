@@ -51,7 +51,7 @@ public class Ultrasoon
                 BoardLights.alarmLights();
             }
         }
-        else
+        else if (_collided)
         {  
             _collided = false;
             BoardLights.stop();
