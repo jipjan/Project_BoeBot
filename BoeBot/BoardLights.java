@@ -1,80 +1,75 @@
 import TI.*;
-import java.awt.Color;
+import static java.util.concurrent.TimeUnit.*;
+import java.util.concurrent.*;
 
 /**
- * Write a description of class RGB_Board here.
+ * BoardLight handler
  * 
- * @author Zwen van Erkelens 
- * @version (a version number or a date)
+ * @author Groep B1
  */
 public class BoardLights
-{
-    Color color = Color.getHSBColor((float)0.03, 1, 1);
-    
-    public void alarmLights()
+{   
+    private static ScheduledFuture<?> _lights;    
+    private static boolean _on = true;
+
+    public static void alarmLights()
     {
-        stopAllLights();
-            while(true)
-        {
-            BoeBot.rgbSet(0, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbSet(1, 0, 0, 0);
-            BoeBot.rgbSet(2, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbSet(3, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbSet(4, 0, 0, 0);
-            BoeBot.rgbSet(5, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbShow();
-            
-            BoeBot.wait(500);
-            
-            stopAllLights();
-            
-            BoeBot.wait(500);
-        }
+        stop();
+        _lights = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
+            {
+                if (_on) reset();
+                else
+                {
+                    BoeBot.rgbSet(0, 255, 0, 0);
+                    BoeBot.rgbSet(2, 255, 0, 0);
+                    BoeBot.rgbSet(3, 255, 0, 0);
+                    BoeBot.rgbSet(5, 255, 0, 0);
+                    BoeBot.rgbShow();
+                }
+                _on = !_on;
+            }, 0, 500, MILLISECONDS);
     }
-    
-    public void rightLights()
+
+    public static void rightLights()
     {
-        stopAllLights();
-            while(true)
-        {
-            BoeBot.rgbSet(0, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbSet(1, 0, 0, 0);
-            BoeBot.rgbSet(2, 0, 0, 0);
-            BoeBot.rgbSet(3, 0, 0, 0);
-            BoeBot.rgbSet(4, 0, 0, 0);
-            BoeBot.rgbSet(5, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbShow();
-            
-            BoeBot.wait(500);
-            
-            stopAllLights();
-            
-            BoeBot.wait(500);
-        }
+        stop();
+        _lights = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
+            {
+                if (_on) reset();
+                else
+                {
+                    BoeBot.rgbSet(0, 255, 165, 0);
+                    BoeBot.rgbSet(5, 255, 165, 0);
+                    BoeBot.rgbShow();
+                }
+                _on = !_on;
+            }, 0, 500, MILLISECONDS);
     }
-    
-    public void leftLights()
+
+    public static void leftLights()
     {
-        stopAllLights();
-            while(true)
-        {
-            BoeBot.rgbSet(0, 0, 0, 0);
-            BoeBot.rgbSet(1, 0, 0, 0);
-            BoeBot.rgbSet(2, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbSet(3, color.getRed(), color.getGreen(), color.getBlue());
-            BoeBot.rgbSet(4, 0, 0, 0);
-            BoeBot.rgbSet(5, 0, 0, 0);
-            BoeBot.rgbShow();
-            
-            BoeBot.wait(500);
-            
-            stopAllLights();
-            
-            BoeBot.wait(500);
-        }
+        stop();
+        _lights = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
+            {
+                if (_on) reset();
+                else
+                {
+                    BoeBot.rgbSet(2, 255, 165, 0);
+                    BoeBot.rgbSet(3, 255, 165, 0);
+                    BoeBot.rgbShow();
+                }
+                _on = !_on;
+            }, 0, 500, MILLISECONDS);
     }
-    
-    public void stopAllLights()
+
+    public static void stop()
+    {
+        if (_lights != null) _lights.cancel(true);        
+        reset();
+        _on = false;
+    }
+
+    private static void reset()
     {
         BoeBot.rgbSet(0, 0, 0, 0);
         BoeBot.rgbSet(1, 0, 0, 0);
