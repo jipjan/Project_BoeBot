@@ -3,26 +3,26 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 
 /**
- * Write a description of class Ultrasoon here.
+ * Collision Detection Class
  * 
  * @author Zwen van Erkelens 
  * @version (a version number or a date)
  */
 public class Ultrasoon
 {
-    private static ScheduledFuture<?> _blinker;
+    private static ScheduledFuture<?> _ultrasoon;
 
     public static void startDetection()
     {      
         System.out.println("Starting Ultrasoon Sensor..");
 
-        if (_blinker != null && !_blinker.isDone())
+        if (_ultrasoon != null && !_ultrasoon.isDone())
         {
             System.out.println("Already running, returning..");            
             return;
         }
 
-        _blinker = TimerHandler.Timer.scheduleWithFixedDelay(
+        _ultrasoon = TimerHandler.Timer.scheduleWithFixedDelay(
             () -> 
             {
                 BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, true);
@@ -44,6 +44,6 @@ public class Ultrasoon
 
     public static void stopDetection()
     {
-        if (_blinker != null) _blinker.cancel(true);
+        if (_ultrasoon != null) _ultrasoon.cancel(true);
     }
 }
