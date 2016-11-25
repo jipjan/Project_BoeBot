@@ -5,4 +5,9 @@ public class CollisionDetection
         //Whiskers.startDetection();
         Ultrasoon.startDetection();
     }
+    
+    public static boolean hasCollided()
+    {
+        return Ultrasoon.hasCollided();
+    }
 }

@@ -57,6 +57,11 @@ public class Ultrasoon
             BoardLights.stop();
         }
     }
+    
+    public static boolean hasCollided()
+    {
+        return _collided;
+    }
 
     public static void stopDetection()
     {
