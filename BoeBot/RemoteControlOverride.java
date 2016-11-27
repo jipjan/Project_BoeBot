@@ -46,15 +46,18 @@ public class RemoteControlOverride
             case 6:            
             Engines.setSpeed(Speed.HALF_LEFT_REVERSE);
             BoardLights.leftLights();
+            SpeakerPatern.reverse();
             break;
 
             case 7: 
             Engines.setSpeed(Speed.MAX_REVERSE);
+            SpeakerPatern.reverse();
             break;
 
             case 8:            
             Engines.setSpeed(Speed.HALF_RIGHT_REVERSE);
             BoardLights.rightLights();
+            SpeakerPatern.reverse();
             break;
 
             case 29:
