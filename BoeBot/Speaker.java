@@ -1,36 +1,33 @@
 import TI.*;
+import static java.util.concurrent.TimeUnit.*;
+import java.util.concurrent.*;
 
 /**
- * Write a description of class Speaker here.
+ * Hardware class voor de speaker/buzzer
  * 
- * @author Zwen van Erkelens 
- * @version (a version number or a date)
+ * @author Groep B1
  */
+
 public class Speaker
 {
-    private int _pin;
-    private int _time;
-    private int _freq;
+    private static ScheduledFuture<?> _beep;
     
-    public Speaker(int pin, int freq, int time)
-    {
-        _pin = pin;
-        _freq = freq;
-        _time = time;
+    public static void beepOnce(int frequency, int duration)
+    {    
+        stop();
+        BoeBot.freqOut(Constants.BUZZER_PIN, frequency, duration);        
     }
     
-    public void beep()
+    public static void beepContinuous(int frequency, int duration, int timeout)
     {
-        while(true)
-        {
-            BoeBot.freqOut(_pin, _freq, _time);
-            BoeBot.wait(_time);
-        }
+        stop();
+        _beep = TimerHandler.Timer.scheduleWithFixedDelay(() ->
+               BoeBot.freqOut(Constants.BUZZER_PIN, frequency, duration) 
+            , 0, timeout, MILLISECONDS);
     }
     
-    public void reverseBeep()
+    public static void stop()
     {
-        Speaker reverse = new Speaker(_pin, 5000, 500);
-        reverse.beep();
+        if (_beep != null) _beep.cancel(true);
     }
 }

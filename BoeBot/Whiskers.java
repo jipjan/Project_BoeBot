@@ -33,20 +33,11 @@ public class Whiskers
     private static void collisionCheck(boolean left, boolean right)
     {
         if (left && right)
-        {
-            System.out.println("Collision Center");
-            collided();
-        }
-        else if (left)
-        {
-            System.out.println("Collision Left");                  
-            collided();
-        }
-        else if (right)
-        {
-            System.out.println("Collision Right");        
-            collided();
-        }
+            collided("Collision Center");        
+        else if (left)                 
+            collided("Collision Left");        
+        else if (right) 
+            collided("Collision Right");        
         else if (_collided)
         {  
             _collided = false;
@@ -54,8 +45,9 @@ public class Whiskers
         }
     }
 
-    private static void collided()
+    private static void collided(String print)
     {
+        System.out.println(print);
         if (!_collided)
         {
             _collided = true;
