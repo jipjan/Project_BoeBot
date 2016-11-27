@@ -2,12 +2,12 @@ public class CollisionDetection
 {
     public static void start()
     {
-        //Whiskers.startDetection();
+        Whiskers.startDetection();
         Ultrasoon.startDetection();
     }
     
     public static boolean hasCollided()
     {
-        return Ultrasoon.hasCollided();
+        return Ultrasoon.hasCollided() || Whiskers.hasCollided();
     }
 }

@@ -16,6 +16,6 @@ public class Constants
     public static final int LED_LEFT_PIN = 15;
     public static final int LED_RIGHT_PIN = 0;
     
-    public static final int WHISKER_LEFT_PIN = 11;
-    public static final int WHISKER_RIGHT_PIN = 12;
+    public static final int WHISKER_LEFT_PIN = 1;
+    public static final int WHISKER_RIGHT_PIN = 2;
 }
