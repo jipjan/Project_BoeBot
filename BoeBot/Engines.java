@@ -26,7 +26,7 @@ public class Engines
      * Zet de bot abrupt stil
      */
     public static void breakBot()
-    {
+    {        
         EnginePaternBuilder.getInstance().stop();
         setSpeed(Speed.STOP);
     }
@@ -48,12 +48,12 @@ public class Engines
     public static void turnDegrees(int degrees)
     {
         if (degrees == 0) return;
-        
+
         if (degrees > 0)
             turn(Turn.LEFT);
         else
             turn(Turn.RIGHT);
-            
+
         BoeBot.wait(calcWaitTime(Math.abs(degrees)));
         breakBot();
     }

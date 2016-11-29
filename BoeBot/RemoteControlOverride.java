@@ -8,7 +8,7 @@ public class RemoteControlOverride
 
         if (!CollisionDetection.hasCollided())
         {
-            Engines.breakBot();
+            EnginePaternBuilder.getInstance().stop();
             switch (input)
             {            
                 case 0:            
