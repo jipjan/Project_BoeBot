@@ -7,6 +7,7 @@ import TI.*;
  */
 public class Engines
 {   
+    private static Speed _currentSpeed = Speed.STOP;
     private static Servo _left = new Servo(Constants.SERVO_LEFT);
     private static Servo _right = new Servo(Constants.SERVO_RIGHT); 
 
@@ -17,9 +18,15 @@ public class Engines
     public static void setSpeed(Speed speed)
     {        
         //Speaker.stop();
+        _currentSpeed = speed;
         BoardLights.stop();
         leftSpeed(speed.Left);
         rightSpeed(speed.Right);
+    }
+    
+    public static Speed getCurrentSpeed()
+    {
+        return _currentSpeed;
     }
 
     /*

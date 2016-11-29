@@ -22,32 +22,30 @@ public class LightSensor
                 boolean center = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_CENTER));
                 boolean right = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_RIGHT));
 
-        
-                
-                Speed speed;
-
+                Speed speed = Engines.getCurrentSpeed();
                 if (center)
                 {
-                    speed = Speed.MAX;
-                    if (left)
+                    if (!left && !right)
+                        speed = Speed.HALF;
+                    else if (left)
                         speed = Speed.HALF_LEFT;
                     else if (right)
-                        speed = Speed.HALF_RIGHT;                        
+                        speed = Speed.HALF_RIGHT;                    
                 }
                 else
                 {
                     if (left)
-                        speed = Speed.HALF_LEFT;
+                        speed = Speed.LINE_LEFT;
                     else if (right)
-                        speed = Speed.HALF_RIGHT; 
+                        speed = Speed.LINE_RIGHT; 
                 }
 
-            
-            }, 0, 200, MILLISECONDS);
+                Engines.setSpeed(speed);
+            }, 0, 15, MILLISECONDS);
     }
 
     private static boolean isBlack(int input)
     {
-        return input > 1500;
+        return input > 1200;
     }
 }
