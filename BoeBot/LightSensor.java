@@ -23,10 +23,12 @@ public class LightSensor
                 boolean right = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_RIGHT));
 
                 Speed speed = Engines.getCurrentSpeed();
-                if (center)
+                if (!center && !left && !right)
+                    speed = Speed.MAX;             
+                else if (center)
                 {
                     if (!left && !right)
-                        speed = Speed.HALF;
+                        speed = Speed.MAX;
                     else if (left)
                         speed = Speed.HALF_LEFT;
                     else if (right)

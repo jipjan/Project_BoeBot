@@ -11,8 +11,8 @@ public enum Speed
         HALF_RIGHT_REVERSE(-50, -200),
         HALF_LEFT(200, 50),
         HALF_RIGHT(50, 200),
-        LINE_LEFT(100, 25),
-        LINE_RIGHT(25, 100);
+        LINE_LEFT(100, 0),
+        LINE_RIGHT(0, 100);
         
         public final int Left, Right;
         
