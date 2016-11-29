@@ -7,12 +7,12 @@ import java.util.concurrent.*;
  * 
  * @author Groep B1
  */
-public class Led
+public class LED
 {
     private int _pin;
     private ScheduledFuture<?> _blinker;
 
-    public Led(int pin)
+    public LED(int pin)
     {
         _pin = pin;
     }

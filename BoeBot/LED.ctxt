@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.params=pin
-comment0.target=Led(int)
+comment0.target=LED(int)
 comment1.params=
 comment1.target=void\ switchLed()
 comment2.params=timeout
