@@ -1,6 +1,7 @@
 import TI.*;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
+import java.awt.*;
 
 /**
  * BoardLight handler
@@ -62,6 +63,18 @@ public class BoardLights
             }, 0, 500, MILLISECONDS);
     }
 
+    private static float cycle = 0;
+
+    public static void cycle()
+    {
+        stop();
+        _lights = TimerHandler.Timer.scheduleWithFixedDelay(() ->
+            {
+                setColorOnAll(Color.getHSBColor(cycle, 1, 1));
+                cycle += 0.01f;
+            }, 0, 10, MILLISECONDS);
+    }
+
     public static void stop()
     {
         if (_lights != null) _lights.cancel(true);        
@@ -71,12 +84,13 @@ public class BoardLights
 
     private static void reset()
     {
-        BoeBot.rgbSet(0, 0, 0, 0);
-        BoeBot.rgbSet(1, 0, 0, 0);
-        BoeBot.rgbSet(2, 0, 0, 0);
-        BoeBot.rgbSet(3, 0, 0, 0);
-        BoeBot.rgbSet(4, 0, 0, 0);
-        BoeBot.rgbSet(5, 0, 0, 0);
+        setColorOnAll(new Color(0,0,0));
+    }
+
+    private static void setColorOnAll(Color color)
+    {
+        for (int i = 0; i < 6; i++)
+            BoeBot.rgbSet(i, color.getRed(), color.getGreen(), color.getBlue());        
         BoeBot.rgbShow();
     }
 }
