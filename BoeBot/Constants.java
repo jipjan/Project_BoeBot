@@ -20,4 +20,8 @@ public class Constants
     public static final int WHISKER_RIGHT_PIN = 6;
     
     public static final int BUZZER_PIN = 7;
+    
+    public static final int LIGHT_SENSOR_LEFT = 0;
+    public static final int LIGHT_SENSOR_CENTER = 1;
+    public static final int LIGHT_SENSOR_RIGHT = 2;
 }
