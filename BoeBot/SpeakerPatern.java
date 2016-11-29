@@ -3,7 +3,7 @@ public class SpeakerPatern
 {
     public static void reverse()
     {
-        Speaker.beepContinuous(5000, 500, 500);
+        //Speaker.beepContinuous(5000, 500, 500);
     }
 
     /*
@@ -12,6 +12,6 @@ public class SpeakerPatern
      */
     public static void stop()
     {
-        Speaker.stop();
+        //Speaker.stop();
     }
 }

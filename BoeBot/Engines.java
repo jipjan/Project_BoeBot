@@ -16,7 +16,7 @@ public class Engines
      */
     public static void setSpeed(Speed speed)
     {        
-        Speaker.stop();
+        //Speaker.stop();
         BoardLights.stop();
         leftSpeed(speed.Left);
         rightSpeed(speed.Right);
