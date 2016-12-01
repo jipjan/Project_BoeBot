@@ -3,68 +3,44 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 
 /**
- * Collision Detection Class
+ * Detectie voor de ultrasoon sensor.
  * 
- * @author Zwen van Erkelens 
- * @version (a version number or a date)
+ * @author Groep B1
  */
-public class Ultrasoon
+public class Ultrasoon extends BaseCollider
 {
-    private static ScheduledFuture<?> _ultrasoon;
-    private static boolean _collided = false;
-
+    /*
+     * Start de detectie met de ultrasoon sensor.
+     */
     public static void startDetection()
     {      
-        System.out.println("Starting Ultrasoon Sensor..");
-
-        if (_ultrasoon != null && !_ultrasoon.isDone())
-        {
-            System.out.println("Already running, returning..");            
-            return;
-        }
-
-        _ultrasoon = TimerHandler.Timer.scheduleWithFixedDelay(
-            () -> 
+        startDetection("Ultrasoon", () -> 
             {
                 BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, true);
                 BoeBot.wait(1);
                 BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, false);
 
                 collisionCheck(BoeBot.pulseIn(Constants.ULTRASOON_OUT_PIN, true, 10000));                
-            }, 0, 100, MILLISECONDS);     
+            }, 100);  
     }
 
+    /*
+     * Controleer of er een object te dichtbij aan het komen is en stop eventueel.
+     */
     private static void collisionCheck(int pulse)
     {
         if (pulse == -2)
-        {
             System.out.println("Ultrasoon not connected, or is experiencing issues...");
-            return;
-        }
-        if (pulse < Constants.ULTRASOON_DISTANCE)
+        else
         {
-            if (!_collided)
-            {
-                _collided = true;
-                System.out.println("Collision Imminent, stopping..."+pulse);               
-                Engines.breakBot();
-                BoardLights.alarmLights();
+            if (pulse < Constants.ULTRASOON_DISTANCE)
+                collided(_collided);
+            else if (_collided)
+            {  
+                _collided = false;
+                BoardLights.stop();
             }
         }
-        else if (_collided)
-        {  
-            _collided = false;
-            BoardLights.stop();
-        }
-    }
-    
-    public static boolean hasCollided()
-    {
-        return _collided;
-    }
+    }  
 
-    public static void stopDetection()
-    {
-        if (_ultrasoon != null) _ultrasoon.cancel(true);
-    }
 }

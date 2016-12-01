@@ -1,10 +1,8 @@
 #BlueJ class context
 comment0.params=
 comment0.target=void\ startDetection()
+comment0.text=\r\n\ Start\ de\ detectie\ met\ de\ ultrasoon\ sensor.\r\n
 comment1.params=pulse
 comment1.target=void\ collisionCheck(int)
-comment2.params=
-comment2.target=boolean\ hasCollided()
-comment3.params=
-comment3.target=void\ stopDetection()
-numComments=4
+comment1.text=\r\n\ Controleer\ of\ er\ een\ object\ te\ dichtbij\ aan\ het\ komen\ is\ en\ stop\ eventueel.\r\n
+numComments=2
