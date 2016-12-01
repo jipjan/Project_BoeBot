@@ -50,4 +50,9 @@ public class LightSensor
     {
         return input > 1200;
     }
+    
+    public static void stopAutoDrive()
+    {
+        if (_sensor != null) _sensor.cancel(true);
+    }
 }

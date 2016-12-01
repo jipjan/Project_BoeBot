@@ -3,4 +3,6 @@ comment0.params=
 comment0.target=void\ startAutoDrive()
 comment1.params=input
 comment1.target=boolean\ isBlack(int)
-numComments=2
+comment2.params=
+comment2.target=void\ stopAutoDrive()
+numComments=3

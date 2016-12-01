@@ -1,11 +1,10 @@
 
 public class RemoteControlOverride
-{
-
-    public static void drive()
+{    
+    public static void startReading()
     {
         int input = RemoteControl.getRemoteInput();        
-
+        LightSensor.stopAutoDrive();
         if (!CollisionDetection.hasCollided())
         {
             EnginePaternBuilder.getInstance().stop();
@@ -75,6 +74,10 @@ public class RemoteControlOverride
 
             case 19:
             Engines.turnDegrees(90);
+            break;
+
+            case 20:
+            LightSensor.startAutoDrive();
             break;
         }
     }
