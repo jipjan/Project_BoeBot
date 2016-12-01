@@ -8,9 +8,18 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        CollisionDetection.start();
+        LightSensor.startAutoDrive();
+        
+        /*
         while (true)
-            RemoteControlOverride.drive();
+        {
+            System.out.println("Left: " + BoeBot.analogRead(0));
+             System.out.println("Center: " + BoeBot.analogRead(1));
+              System.out.println("Right: " + BoeBot.analogRead(2));
+              System.out.println("");
+              BoeBot.wait(1000);
+        }
+        */        
     }
 }
 
