@@ -3,69 +3,40 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 
 /**
- * Write a description of class Voelsprieten here.
+ * Detectie van de voelsprieten.
  * 
- * @author Zwen van Erkelens 
- * @version (a version number or a date)
+ * @author Groep B1
  */
-public class Whiskers
+public class Whiskers extends BaseCollider
 {
-    private static ScheduledFuture<?> _whiskers;
-    private static boolean _collided = false;
-
+    /*
+     * Start de detectie van een botsing met de voelsprieten.
+     */
     public static void startDetection()
     {
-        System.out.println("Starting Whisker Collision Detection..");
-
-        if (_whiskers != null && !_whiskers.isDone())
-        {
-            System.out.println("Already running, returning..");            
-            return;
-        }      
-
-        _whiskers = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
+        startDetection("Whiskers", () -> 
                 collisionCheck(
                     !BoeBot.digitalRead(Constants.WHISKER_LEFT_PIN),
                     !BoeBot.digitalRead(Constants.WHISKER_RIGHT_PIN)
-                ), 0, 100, MILLISECONDS);
+                ), 100);
     }
 
+    /*
+     * Controleer wat voor soort botsing er is.
+     */
     private static void collisionCheck(boolean left, boolean right)
     {
         if (left && right)
-            collided("Collision Center");        
+            collided(_collided);        
         else if (left)                 
-            collided("Collision Left");        
+            collided(_collided);        
         else if (right) 
-            collided("Collision Right");        
+            collided(_collided);        
         else if (_collided)
         {  
             _collided = false;
             BoardLights.stop();
         }
-    }
-
-    private static void collided(String print)
-    {
-        System.out.println(print);
-        if (!_collided)
-        {
-            _collided = true;
-            System.out.println("Collision Imminent, stopping...");               
-            Engines.breakBot();
-            BoardLights.alarmLights();
-        }
-    }
-
-    public static boolean hasCollided()
-    {
-        return _collided;
-    }
-   
-
-    public static void stopDetection()
-    {
-        if (_whiskers != null) _whiskers.cancel(true);
-    }
+    }   
 
 }

@@ -1,12 +1,8 @@
 #BlueJ class context
 comment0.params=
 comment0.target=void\ startDetection()
+comment0.text=\r\n\ Start\ de\ detectie\ van\ een\ botsing\ met\ de\ voelsprieten.\r\n
 comment1.params=left\ right
 comment1.target=void\ collisionCheck(boolean,\ boolean)
-comment2.params=print
-comment2.target=void\ collided(java.lang.String)
-comment3.params=
-comment3.target=boolean\ hasCollided()
-comment4.params=
-comment4.target=void\ stopDetection()
-numComments=5
+comment1.text=\r\n\ Controleer\ wat\ voor\ soort\ botsing\ er\ is.\r\n
+numComments=2

@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=sensorName\ task\ delay
+comment0.target=void\ startDetection(java.lang.String,\ java.lang.Runnable,\ int)
+comment0.text=\r\n\ De\ inwendige\ methode\ waarmee\ de\ detectie\ wordt\ gestart.\r\n\ @param\ \ \ sensorName\ \ De\ naam\ van\ de\ sensor,\ mag\ alles\ zijn,\ is\ voor\ debugging.\r\n\ @param\ \ \ task\ \ \ \ \ \ \ \ De\ methode\ die\ moet\ worden\ uitgevoerd\ voor\ het\ controleren\ op\ botsing.\r\n\ @param\ \ \ delay\ \ \ \ \ \ \ De\ interval\ waarmee\ moet\ worden\ gecontroleerd.\r\n
+comment1.params=collided
+comment1.target=void\ collided(boolean)
+comment1.text=\r\n\ Interne\ methode\ om\ te\ kijken\ of\ er\ een\ botsing\ is\ geweest.\r\n\ @param\ \ \ collided\ \ \ \ De\ variabele\ voor\ het\ controleren\ of\ de\ botsing\ nog\ steeds\ bezig\ is,\ of\ niet\ is.\r\n
+comment2.params=
+comment2.target=boolean\ hasCollided()
+comment2.text=\r\n\ Publieke\ methode\ om\ te\ controleren\ of\ er\ een\ botsing\ is\ geweest.\r\n
+comment3.params=
+comment3.target=void\ stopDetection()
+comment3.text=\r\n\ Stop\ de\ detectie\ van\ botsingen\ met\ deze\ sensor.\r\n
+numComments=4
