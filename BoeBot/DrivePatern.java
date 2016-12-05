@@ -3,12 +3,22 @@ public class DrivePatern
     private static EnginePaternBuilder _builder = EnginePaternBuilder.getInstance();    
     
    
-    public static void square()
+    public static void squareLeft()
     {
         _builder.clear();
         _builder.addSteps(
             new EngineStep(Speed.MAX, 1000),
             new EngineStep(Speed.LEFT, Engines.calcWaitTime(90))
+        );
+        _builder.run(true);
+    }
+    
+    public static void squareRight()
+    {
+        _builder.clear();
+        _builder.addSteps(
+            new EngineStep(Speed.MAX, 1000),
+            new EngineStep(Speed.RIGHT, Engines.calcWaitTime(90))
         );
         _builder.run(true);
     }
