@@ -76,7 +76,7 @@ public class RemoteControlOverride
             Engines.turnDegrees(90);
             break;
 
-            case 20:
+            case 21:
             LightSensor.startAutoDrive();
             break;
         }
