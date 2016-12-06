@@ -36,4 +36,18 @@ public enum Speed
             else
                 return -1;
         }
+        
+        public int compareLeft(int left)
+        {
+            if (Left == left) return 0;
+            if (Left > left) return -1;
+            else return 1;
+        }
+        
+        public int compareRight(int right)
+        {
+            if (Right == right) return 0;
+            if (Right > right) return -1;
+            else return 1;
+        }
 }

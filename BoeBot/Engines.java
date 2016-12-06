@@ -27,10 +27,9 @@ public class Engines
         {
             case STOP:
             while (!_currentSpeed.equals(0,0))
-            {
-                int comp = _currentSpeed.compare(0, 0);                  
-                _currentSpeed.Left += comp;
-                _currentSpeed.Right += comp;
+            {                
+                if (_currentSpeed.Left != 0) _currentSpeed.Left += _currentSpeed.compareLeft(speed.Left);
+                if (_currentSpeed.Right != 0) _currentSpeed.Right += _currentSpeed.compareRight(speed.Right);
                 leftSpeed(_currentSpeed.Left);
                 rightSpeed(_currentSpeed.Right);
                 System.out.println("Current Left: " + _currentSpeed.Left + "Current Right: " + _currentSpeed.Right);
