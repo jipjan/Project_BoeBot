@@ -20,8 +20,14 @@ public class Engines
         //Speaker.stop();
         _currentSpeed = speed;
         BoardLights.stop();
-        leftSpeed(speed.Left);
-        rightSpeed(speed.Right);
+        
+        switch (speed)
+        {
+            default:
+            leftSpeed(speed.Left);
+            rightSpeed(speed.Right);
+            break;
+        }     
     }
     
     public static Speed getCurrentSpeed()
@@ -34,7 +40,7 @@ public class Engines
      */
     public static void breakBot()
     {        
-        EnginePaternBuilder.getInstance().stop();
+        EnginePaternBuilder.getInstance().stop();        
         setSpeed(Speed.STOP);
     }
 
