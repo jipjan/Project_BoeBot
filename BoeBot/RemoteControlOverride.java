@@ -50,8 +50,11 @@ public class RemoteControlOverride
             BoardLights.leftLights();
             break;
 
-            case 7: 
-            Engines.setSpeed(Speed.MAX_REVERSE);            
+            case 7:
+            if (Engines.getCurrentSpeed() == Speed.HALF_REVERSE)
+                Engines.setSpeed(Speed.MAX_REVERSE);
+            else
+                Engines.setSpeed(Speed.MAX_REVERSE);
             break;
 
             case 8:            
@@ -82,7 +85,7 @@ public class RemoteControlOverride
             case 21:
             LightSensor.startAutoDrive();
             break;
-            
+
             case 56:
             DrivePatern.squareRight();
             break;
