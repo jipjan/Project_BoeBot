@@ -1,8 +1,8 @@
 public enum Speed
 { 
         STOP(0, 0),
-        HALF(100, 100),
-        HALF_REVERSE(-100, -100),
+        HALF(50, 50),
+        HALF_REVERSE(-50, -50),
         MAX(200, 200),
         MAX_REVERSE(-200, -200),
         LEFT(200, -200),

@@ -17,7 +17,7 @@ public class Engines
      */
     public static void setSpeed(Speed speed)
     {        
-        //Speaker.stop();
+        if (_currentSpeed == speed) return;
         _currentSpeed = speed;
         BoardLights.stop();
         

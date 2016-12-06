@@ -54,7 +54,7 @@ public class RemoteControlOverride
             if (Engines.getCurrentSpeed() == Speed.HALF_REVERSE)
                 Engines.setSpeed(Speed.MAX_REVERSE);
             else
-                Engines.setSpeed(Speed.MAX_REVERSE);
+                Engines.setSpeed(Speed.HALF_REVERSE);
             break;
 
             case 8:            

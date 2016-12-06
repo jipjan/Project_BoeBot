@@ -8,11 +8,14 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        CollisionDetection.start();
-        LightSensor.startAutoDrive();             
+        //CollisionDetection.start();
+        //LightSensor.startAutoDrive();             
 
         while (true)
+        {
             RemoteControlOverride.startReading();
+            BoeBot.wait(100);
+        }
     }
 }
 
