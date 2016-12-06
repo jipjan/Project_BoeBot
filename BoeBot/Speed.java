@@ -14,11 +14,26 @@ public enum Speed
         LINE_LEFT(100, 0),
         LINE_RIGHT(0, 100);
         
-        public final int Left, Right;
+        public int Left, Right;
         
         Speed(int left, int right)
         {
             Left = left;
             Right = right;
+        }
+        
+        public boolean equals(int left, int right)
+        {
+            return (left == Left && right == Right);
+        }
+        
+        public int compare(int left, int right)
+        {
+            if (equals(left, right))
+                return 0;
+            if (left > Left && right > Right)
+                return 1;
+            else
+                return -1;
         }
 }

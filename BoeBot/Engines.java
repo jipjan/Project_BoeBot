@@ -1,6 +1,8 @@
 import TI.*;
-/**
- * De Engines class bevat alle methoden om de boebot te laten rijden.
+import static java.util.concurrent.TimeUnit.*;
+import java.util.concurrent.*;
+
+/* De Engines class bevat alle methoden om de boebot te laten rijden.
  * 
  * @author Groep B1 
  * @version 0.2
@@ -9,7 +11,8 @@ public class Engines
 {   
     private static Speed _currentSpeed = Speed.STOP;
     private static Servo _left = new Servo(Constants.SERVO_LEFT);
-    private static Servo _right = new Servo(Constants.SERVO_RIGHT); 
+    private static Servo _right = new Servo(Constants.SERVO_RIGHT);
+    private static ScheduledFuture<?> _timer;
 
     /*
      * Zet de speed van beide motoren naar de ingevulde waarde.
@@ -17,19 +20,51 @@ public class Engines
      */
     public static void setSpeed(Speed speed)
     {        
-        if (_currentSpeed == speed) return;
-        _currentSpeed = speed;
         BoardLights.stop();
-        
+        if (_timer != null) _timer.cancel(true);
+        if (speed.equals(_currentSpeed)) return;        
         switch (speed)
         {
+            case STOP:
+            while (!_currentSpeed.equals(0,0))
+            {
+                int comp = _currentSpeed.compare(0, 0);                  
+                _currentSpeed.Left += comp;
+                _currentSpeed.Right += comp;
+                leftSpeed(_currentSpeed.Left);
+                rightSpeed(_currentSpeed.Right);
+                System.out.println("Current Left: " + _currentSpeed.Left + "Current Right: " + _currentSpeed.Right);
+                BoeBot.wait(10);                
+            }
+            break;
+
             default:
             leftSpeed(speed.Left);
             rightSpeed(speed.Right);
+            _currentSpeed = speed;
             break;
-        }     
+        }
+        //leftSpeed(speed.Left);
+        //rightSpeed(speed.Right);
+        //slowSpeedUp(speed.Left, speed.Right);        
     }
-    
+
+    private static void slowSpeedUp(int left, int right)
+    {
+        if (_currentSpeed.equals(left, right)) return;        
+        _timer = TimerHandler.Timer.schedule(() ->
+            {  
+                int comp = _currentSpeed.compare(left, right);                  
+                System.out.println("Left: " + comp + " Right: " + comp);
+                _currentSpeed.Left = left + comp;
+                _currentSpeed.Right = right + comp;
+                leftSpeed(_currentSpeed.Left);
+                rightSpeed(_currentSpeed.Right);
+                System.out.println("Current Left: " + _currentSpeed.Left + "Current Right: " + _currentSpeed.Right);
+                slowSpeedUp(_currentSpeed.Left, _currentSpeed.Right);
+            }, 10, MILLISECONDS);
+    }
+
     public static Speed getCurrentSpeed()
     {
         return _currentSpeed;
@@ -39,8 +74,9 @@ public class Engines
      * Zet de bot abrupt stil
      */
     public static void breakBot()
-    {        
-        EnginePaternBuilder.getInstance().stop();        
+    {
+        if (_timer != null) _timer.cancel(true);
+        EnginePaternBuilder.getInstance().stop();
         setSpeed(Speed.STOP);
     }
 

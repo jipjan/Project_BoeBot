@@ -1,4 +1,8 @@
 #BlueJ class context
 comment0.params=left\ right
 comment0.target=Speed(int,\ int)
-numComments=1
+comment1.params=left\ right
+comment1.target=boolean\ equals(int,\ int)
+comment2.params=left\ right
+comment2.target=int\ compare(int,\ int)
+numComments=3
