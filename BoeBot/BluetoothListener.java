@@ -5,23 +5,22 @@ public class BluetoothListener
     static byte[] writeOk = "Ok".getBytes(StandardCharsets.US_ASCII);
     static SerialConnection conn = new SerialConnection(115200);
     
-    public static void main (String[] args)
+    public static void start()
     {
         while(true)
         {
             if (conn.available()>0)
             {
-                int data = conn.readByte();                
-
+                int data = conn.readByte();
+                conn.writeByte(data);
                 switch(data)
                 {
-                    case 119: ok(); Engines.setSpeed(Speed.MAX); break; 
-                    case 97: ok(); Engines.setSpeed(Speed.LEFT); break;
-                    case 115: ok(); Engines.setSpeed(Speed.MAX_REVERSE); break;
-                    case 100: ok(); Engines.setSpeed(Speed.RIGHT); break;
-                    case 32: ok(); Engines.breakBot(); break;
+                    case 119: Engines.setSpeed(Speed.MAX); break; 
+                    case 97: Engines.setSpeed(Speed.LEFT); break;
+                    case 115: Engines.setSpeed(Speed.MAX_REVERSE); break;
+                    case 100: Engines.setSpeed(Speed.RIGHT); break;
+                    case 32: Engines.breakBot(); break;
                 }
-
                 System.out.println("Received: " + data);
             }
             BoeBot.wait(10);
