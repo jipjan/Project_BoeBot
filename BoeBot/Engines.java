@@ -25,7 +25,7 @@ public class Engines
         if (_speedTimer != null) _speedTimer.cancel(true);
         BoardLights.stop();        
         _speedTimer = TimerHandler.Timer.scheduleAtFixedRate(() ->           
-                timerSetSpeed(speed), 0, 50, MILLISECONDS);        
+                timerSetSpeed(speed), 0, 30, MILLISECONDS);        
     }
 
     private static void timerSetSpeed(Speed speed)
@@ -97,7 +97,6 @@ public class Engines
     public static void leftSpeed(int speed)
     {
         _cLeft = speed;
-        System.out.println("Left: " + _cLeft);
         _left.update(1500 - speed);
     } 
 
@@ -108,7 +107,6 @@ public class Engines
     public static void rightSpeed(int speed)
     {
         _cRight = speed;
-        System.out.println("Right: " + _cRight);
         _right.update(1500 + speed);
     }
 
