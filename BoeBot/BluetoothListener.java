@@ -4,23 +4,30 @@ public class BluetoothListener
 {
     static byte[] writeOk = "Ok".getBytes(StandardCharsets.US_ASCII);
     static SerialConnection conn = new SerialConnection(115200);
-    
+
     public static void start()
     {
         while(true)
         {
             if (conn.available()>0)
             {
-                int data = conn.readByte();
-                conn.writeByte(data);
-                switch(data)
+                char data = (char) conn.readByte();                
+                if (data == ';')
                 {
-                    case 119: Engines.setSpeed(Speed.MAX); break; 
-                    case 97: Engines.setSpeed(Speed.LEFT); break;
-                    case 115: Engines.setSpeed(Speed.MAX_REVERSE); break;
-                    case 100: Engines.setSpeed(Speed.RIGHT); break;
-                    case 32: Engines.breakBot(); break;
+                    
                 }
+                else
+                {
+                    switch(data)
+                    {
+                        case 'w': Engines.setSpeed(Speed.MAX); break; 
+                        case 'a': Engines.setSpeed(Speed.LEFT); break;
+                        case 's': Engines.setSpeed(Speed.MAX_REVERSE); break;
+                        case 'r': Engines.setSpeed(Speed.RIGHT); break;
+                        case ' ': Engines.breakBot(); break;
+                    }
+                }
+                conn.writeByte(data);
                 System.out.println("Received: " + data);
             }
             BoeBot.wait(10);
@@ -30,7 +37,7 @@ public class BluetoothListener
         //s : 115
         //d : 100
         //Spatie : 32
-    }
+    }   
 
     private static void ok()
     {
