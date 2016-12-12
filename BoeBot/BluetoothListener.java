@@ -23,8 +23,14 @@ public class BluetoothListener
                         case 'w': Engines.setSpeed(Speed.MAX); break; 
                         case 'a': Engines.setSpeed(Speed.LEFT); break;
                         case 's': Engines.setSpeed(Speed.MAX_REVERSE); break;
-                        case 'r': Engines.setSpeed(Speed.RIGHT); break;
+                        case 'd': Engines.setSpeed(Speed.RIGHT); break;
+                        case 'q': Engines.setSpeed(Speed.HALF_LEFT); break;
+                        case 'e': Engines.setSpeed(Speed.HALF_RIGHT); break;
+                        case 'z': Engines.setSpeed(Speed.HALF_LEFT_REVERSE); break;
+                        case 'c': Engines.setSpeed(Speed.HALF_RIGHT_REVERSE); break;
                         case ' ': Engines.breakBot(); break;
+                        
+                        case '1': DrivePatern.infinite(); break;
                     }
                 }
                 conn.writeByte(data);
