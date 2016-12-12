@@ -13,7 +13,7 @@ public class Engines
     private static Servo _left = new Servo(Constants.SERVO_LEFT);
     private static Servo _right = new Servo(Constants.SERVO_RIGHT);
     private static ScheduledFuture<?> _speedTimer;
-    
+
     private static int _cLeft, _cRight = 0;
 
     /*
@@ -22,10 +22,10 @@ public class Engines
      */
     public static void setSpeed(Speed speed)
     {
-        BoardLights.stop();
         if (_speedTimer != null) _speedTimer.cancel(true);
+        BoardLights.stop();        
         _speedTimer = TimerHandler.Timer.scheduleAtFixedRate(() ->           
-                timerSetSpeed(speed), 0, 10, MILLISECONDS);        
+                timerSetSpeed(speed), 0, 20, MILLISECONDS);        
     }
 
     private static void timerSetSpeed(Speed speed)
@@ -36,7 +36,7 @@ public class Engines
             _speedTimer.cancel(true);            
             return;
         }
-        
+
         _cLeft += calcDiff(_cLeft, speed.Left);
         _cRight += calcDiff(_cRight, speed.Right); 
         leftSpeed(_cLeft);
@@ -115,9 +115,9 @@ public class Engines
     private static int calcDiff(int cSpeed, int newSpeed)
     {
         if (cSpeed > newSpeed)
-            return -5;
+            return -10;
         else if (cSpeed < newSpeed)
-            return 5;
+            return 10;
         else
             return 0;
     }
