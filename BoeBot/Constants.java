@@ -2,6 +2,7 @@ public class Constants
 {
     // Infrarood sensor
     public static final int IFR_PIN = 9;
+    public static final int[] IFR_HWID = new int[]{ 1200, 600, 600, 600 };
     
     // Servo Engines
     public static final int SERVO_LEFT = 12;
