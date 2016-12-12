@@ -1,8 +1,8 @@
 import TI.*;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
-
-/* De Engines class bevat alle methoden om de boebot te laten rijden.
+/**
+ * De Engines class bevat alle methoden om de boebot te laten rijden.
  * 
  * @author Groep B1 
  * @version 0.2
@@ -12,60 +12,39 @@ public class Engines
     private static Speed _currentSpeed = Speed.STOP;
     private static Servo _left = new Servo(Constants.SERVO_LEFT);
     private static Servo _right = new Servo(Constants.SERVO_RIGHT);
-    private static ScheduledFuture<?> _timer;
+    private static ScheduledFuture<?> _speedTimer;
+
+    private static int _cLeft, _cRight = 0;
 
     /*
      * Zet de speed van beide motoren naar de ingevulde waarde.
      * @param speed     Set speed of bot, domain -200 - 200
      */
     public static void setSpeed(Speed speed)
-    {        
-        BoardLights.stop();
-        if (_timer != null) _timer.cancel(true);
-        if (speed.equals(_currentSpeed)) return;        
-        switch (speed)
-        {
-            case STOP:
-            while (!_currentSpeed.equals(0,0))
-            {                
-                if (_currentSpeed.Left != 0) _currentSpeed.Left += _currentSpeed.compareLeft(speed.Left);
-                if (_currentSpeed.Right != 0) _currentSpeed.Right += _currentSpeed.compareRight(speed.Right);
-                leftSpeed(_currentSpeed.Left);
-                rightSpeed(_currentSpeed.Right);
-                System.out.println("Current Left: " + _currentSpeed.Left + "Current Right: " + _currentSpeed.Right);
-                BoeBot.wait(10);                
-            }
-            break;
-
-            default:
-            leftSpeed(speed.Left);
-            rightSpeed(speed.Right);
-            _currentSpeed = speed;
-            break;
-        }
-        //leftSpeed(speed.Left);
-        //rightSpeed(speed.Right);
-        //slowSpeedUp(speed.Left, speed.Right);        
+    {
+        if (_speedTimer != null) _speedTimer.cancel(true);
+        BoardLights.stop();        
+        _speedTimer = TimerHandler.Timer.scheduleAtFixedRate(() ->           
+                timerSetSpeed(speed), 0, 30, MILLISECONDS);        
     }
 
-    private static void slowSpeedUp(int left, int right)
-    {
-        if (_currentSpeed.equals(left, right)) return;        
-        _timer = TimerHandler.Timer.schedule(() ->
-            {  
-                int comp = _currentSpeed.compare(left, right);                  
-                System.out.println("Left: " + comp + " Right: " + comp);
-                _currentSpeed.Left = left + comp;
-                _currentSpeed.Right = right + comp;
-                leftSpeed(_currentSpeed.Left);
-                rightSpeed(_currentSpeed.Right);
-                System.out.println("Current Left: " + _currentSpeed.Left + "Current Right: " + _currentSpeed.Right);
-                slowSpeedUp(_currentSpeed.Left, _currentSpeed.Right);
-            }, 10, MILLISECONDS);
+    private static void timerSetSpeed(Speed speed)
+    {      
+        if (_cLeft == speed.Left && _cRight == speed.Right) 
+        {
+            _currentSpeed = speed;
+            _speedTimer.cancel(true);            
+            return;
+        }
+
+        _cLeft += calcDiff(_cLeft, speed.Left);
+        _cRight += calcDiff(_cRight, speed.Right); 
+        leftSpeed(_cLeft);
+        rightSpeed(_cRight);        
     }
 
     public static Speed getCurrentSpeed()
-    {
+    {        
         return _currentSpeed;
     }
 
@@ -73,8 +52,8 @@ public class Engines
      * Zet de bot abrupt stil
      */
     public static void breakBot()
-    {
-        if (_timer != null) _timer.cancel(true);
+    {        
+        if (_speedTimer != null) _speedTimer.cancel(true);
         EnginePaternBuilder.getInstance().stop();
         setSpeed(Speed.STOP);
     }
@@ -116,9 +95,10 @@ public class Engines
      * @param speed     Snelheid
      */
     public static void leftSpeed(int speed)
-    {    
+    {
+        _cLeft = speed;
         _left.update(1500 - speed);
-    }
+    } 
 
     /*
      * Zet snelheid van rechter wiel.
@@ -126,6 +106,17 @@ public class Engines
      */
     public static void rightSpeed(int speed)
     {
+        _cRight = speed;
         _right.update(1500 + speed);
+    }
+
+    private static int calcDiff(int cSpeed, int newSpeed)
+    {
+        if (cSpeed > newSpeed)
+            return -10;
+        else if (cSpeed < newSpeed)
+            return 10;
+        else
+            return 0;
     }
 }
