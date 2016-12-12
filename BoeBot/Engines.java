@@ -25,7 +25,7 @@ public class Engines
         if (_speedTimer != null) _speedTimer.cancel(true);
         BoardLights.stop();        
         _speedTimer = TimerHandler.Timer.scheduleAtFixedRate(() ->           
-                timerSetSpeed(speed), 0, 20, MILLISECONDS);        
+                timerSetSpeed(speed), 0, 50, MILLISECONDS);        
     }
 
     private static void timerSetSpeed(Speed speed)
