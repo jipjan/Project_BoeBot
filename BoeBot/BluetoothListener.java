@@ -1,5 +1,7 @@
 import TI.*;
 import java.nio.charset.*;
+import java.util.List;
+
 public class BluetoothListener
 {
     static byte[] writeOk = "Ok".getBytes(StandardCharsets.US_ASCII);
@@ -14,7 +16,20 @@ public class BluetoothListener
                 char data = (char) conn.readByte();                
                 if (data == ';')
                 {
-                    
+                    data = (char) conn.readByte();
+                    List<PathItem> list = LightPath.getPathList();
+                    list.clear();
+                    do 
+                    {
+                        switch (data)
+                        {
+                            case 'w': list.add(PathItem.UP); break;
+                            case 'a': list.add(PathItem.LEFT); break;
+                            case 'd': list.add(PathItem.RIGHT); break;
+                        }
+                        data = (char) conn.readByte();
+                    } while (data != ';');
+                    System.out.println("Path Received: " + LightPath.pathAsString());
                 }
                 else
                 {
@@ -29,12 +44,11 @@ public class BluetoothListener
                         case 'z': Engines.setSpeed(Speed.HALF_LEFT_REVERSE); break;
                         case 'c': Engines.setSpeed(Speed.HALF_RIGHT_REVERSE); break;
                         case ' ': Engines.breakBot(); break;
-                        
+
                         case '1': DrivePatern.infinite(); break;
                     }
+                    System.out.println("Received: " + data);
                 }
-                conn.writeByte(data);
-                System.out.println("Received: " + data);
             }
             BoeBot.wait(10);
         }
