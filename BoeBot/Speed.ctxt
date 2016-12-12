@@ -1,4 +1,6 @@
 #BlueJ class context
 comment0.params=left\ right
 comment0.target=Speed(int,\ int)
-numComments=1
+comment1.params=speed
+comment1.target=boolean\ equals(Speed)
+numComments=2
