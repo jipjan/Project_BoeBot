@@ -6,12 +6,30 @@ public class LightPath
 
     public static void defaultPath()
     {
+        _path.clear();
         _path.add(PathItem.LEFT);
-    }
+        _path.add(PathItem.RIGHT);
+        _path.add(PathItem.UP);
+        _path.add(PathItem.LEFT);
+        _path.add(PathItem.LEFT);
+    }   
 
     public static List<PathItem> getPathList()
     {
         return _path;
+    }
+
+    public static Queue<Speed> getPathListAsSpeedQueue()
+    {
+        Queue<Speed> q = new LinkedList<Speed>();
+        for (PathItem i : _path)
+            switch(i)
+            {
+                case UP: q.add(Speed.MAX); break;
+                case LEFT: q.add(Speed.LEFT); break;
+                case RIGHT: q.add(Speed.RIGHT); break;
+            }
+        return q;
     }
 
     public static String pathAsString()

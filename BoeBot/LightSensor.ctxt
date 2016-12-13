@@ -1,8 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=void\ startAutoDrive()
-comment1.params=input
-comment1.target=boolean\ isBlack(int)
+comment1.params=
+comment1.target=java.lang.String\ getValuesAsString()
 comment2.params=
-comment2.target=void\ stopAutoDrive()
-numComments=3
+comment2.target=void\ crossRoad()
+comment3.params=input
+comment3.target=boolean\ isBlack(int)
+comment4.params=
+comment4.target=void\ stopAutoDrive()
+numComments=5

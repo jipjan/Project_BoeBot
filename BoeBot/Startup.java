@@ -8,6 +8,8 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        BluetoothListener.start();
+        LightPath.defaultPath();
+        LightSensor.startAutoDrive();      
+        
     }
 }
