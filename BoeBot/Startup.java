@@ -10,6 +10,6 @@ public class Startup
     {
         LightPath.defaultPath();
         LightSensor.startAutoDrive();      
-        
+        BluetoothListener.start();
     }
 }

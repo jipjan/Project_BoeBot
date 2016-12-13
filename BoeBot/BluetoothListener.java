@@ -51,6 +51,12 @@ public class BluetoothListener extends BaseListener
             case 'c': Engines.setSpeed(Speed.HALF_RIGHT_REVERSE); break;
             case ' ': Engines.breakBot(); break;
 
+            case 'r': 
+            LightPath.defaultPath();
+            LightSensor.stopAutoDrive();
+            LightSensor.startAutoDrive();
+            break;
+            
             case '1': DrivePatern.infinite(); break;
         }
         System.out.println("Received: " + data);
