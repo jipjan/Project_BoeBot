@@ -25,4 +25,6 @@ public class Constants
     public static final int LIGHT_SENSOR_LEFT = 0;
     public static final int LIGHT_SENSOR_CENTER = 1;
     public static final int LIGHT_SENSOR_RIGHT = 2;
+    
+    public static final char BEGIN_END_PATH_CHAR = ';';
 }

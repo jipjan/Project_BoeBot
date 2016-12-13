@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=name\ task\ delay
+comment0.target=void\ start(java.lang.String,\ java.lang.Runnable,\ int)
+comment0.text=\r\n\ De\ inwendige\ methode\ waarmee\ de\ listener\ wordt\ gestart.\r\n\ @param\ \ \ name\ \ \ \ De\ naam\ van\ de\ sensor,\ mag\ alles\ zijn,\ is\ voor\ debugging.\r\n\ @param\ \ \ task\ \ \ \ De\ methode\ die\ moet\ worden\ uitgevoerd\ voor\ het\ controleren\ van\ input.\r\n\ @param\ \ \ delay\ \ \ De\ interval\ waarmee\ moet\ worden\ gekeken\ voor\ input.\r\n
+comment1.params=
+comment1.target=void\ stop()
+comment1.text=\r\n\ Stop\ listening.\r\n
+numComments=2

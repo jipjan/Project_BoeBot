@@ -1,7 +1,7 @@
 import TI.*;
 
 /**
- * Startup start de bot. * 
+ * Startup start de bot.
  * @author Groep B1
  */
 public class Startup

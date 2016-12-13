@@ -1,5 +1,4 @@
-
-public class RemoteControlOverride
+public class RemoteListener
 {    
     public static void startReading()
     {

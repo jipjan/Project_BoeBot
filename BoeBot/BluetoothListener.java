@@ -2,66 +2,57 @@ import TI.*;
 import java.nio.charset.*;
 import java.util.List;
 
-public class BluetoothListener
+public class BluetoothListener extends BaseListener
 {
-    static byte[] writeOk = "Ok".getBytes(StandardCharsets.US_ASCII);
     static SerialConnection conn = new SerialConnection(115200);
 
     public static void start()
     {
-        while(true)
-        {
-            if (conn.available()>0)
+        start("Bluetooth", () -> 
             {
+                if (conn.available() <= 0) return;
                 char data = (char) conn.readByte();                
-                if (data == ';')
-                {
-                    data = (char) conn.readByte();
-                    List<PathItem> list = LightPath.getPathList();
-                    list.clear();
-                    do 
-                    {
-                        switch (data)
-                        {
-                            case 'w': list.add(PathItem.UP); break;
-                            case 'a': list.add(PathItem.LEFT); break;
-                            case 'd': list.add(PathItem.RIGHT); break;
-                        }
-                        data = (char) conn.readByte();
-                    } while (data != ';');
-                    System.out.println("Path Received: " + LightPath.pathAsString());
-                }
+                if (data == Constants.BEGIN_END_PATH_CHAR)
+                    pathHandling(data);
                 else
-                {
-                    switch(data)
-                    {
-                        case 'w': Engines.setSpeed(Speed.MAX); break; 
-                        case 'a': Engines.setSpeed(Speed.LEFT); break;
-                        case 's': Engines.setSpeed(Speed.MAX_REVERSE); break;
-                        case 'd': Engines.setSpeed(Speed.RIGHT); break;
-                        case 'q': Engines.setSpeed(Speed.HALF_LEFT); break;
-                        case 'e': Engines.setSpeed(Speed.HALF_RIGHT); break;
-                        case 'z': Engines.setSpeed(Speed.HALF_LEFT_REVERSE); break;
-                        case 'c': Engines.setSpeed(Speed.HALF_RIGHT_REVERSE); break;
-                        case ' ': Engines.breakBot(); break;
+                    driveHandling(data);
+            }, 20);
+    }
 
-                        case '1': DrivePatern.infinite(); break;
-                    }
-                    System.out.println("Received: " + data);
-                }
-            }
-            BoeBot.wait(10);
-        }
-        //w : 119
-        //a : 97
-        //s : 115
-        //d : 100
-        //Spatie : 32
-    }   
-
-    private static void ok()
+    private static void pathHandling(char data)
     {
-        for (int i = 0; i < writeOk.length; i++)
-            conn.writeByte(writeOk[i]);
+        data = (char) conn.readByte();
+        List<PathItem> list = LightPath.getPathList();
+        list.clear();
+        do 
+        {
+            switch (data)
+            {
+                case 'w': list.add(PathItem.UP); break;
+                case 'a': list.add(PathItem.LEFT); break;
+                case 'd': list.add(PathItem.RIGHT); break;
+            }
+            data = (char) conn.readByte();
+        } while (data != Constants.BEGIN_END_PATH_CHAR);
+        System.out.println("Path Received: " + LightPath.pathAsString());
+    }
+
+    private static void driveHandling(char data)
+    {
+        switch(data)
+        {
+            case 'w': Engines.setSpeed(Speed.MAX); break; 
+            case 'a': Engines.setSpeed(Speed.LEFT); break;
+            case 's': Engines.setSpeed(Speed.MAX_REVERSE); break;
+            case 'd': Engines.setSpeed(Speed.RIGHT); break;
+            case 'q': Engines.setSpeed(Speed.HALF_LEFT); break;
+            case 'e': Engines.setSpeed(Speed.HALF_RIGHT); break;
+            case 'z': Engines.setSpeed(Speed.HALF_LEFT_REVERSE); break;
+            case 'c': Engines.setSpeed(Speed.HALF_RIGHT_REVERSE); break;
+            case ' ': Engines.breakBot(); break;
+
+            case '1': DrivePatern.infinite(); break;
+        }
+        System.out.println("Received: " + data);
     }
 }

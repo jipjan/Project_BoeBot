@@ -18,7 +18,7 @@ public class RemoteControl
                 else
                     return -1;
             }            
-            BoeBot.wait(10);
+            BoeBot.wait(20);
         }
     }
 
