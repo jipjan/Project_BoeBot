@@ -53,13 +53,17 @@ public class Ultrasoon
     
     protected static void collided(boolean collided)
     {
-        if (!collided)
+        if (!_collided)
         {
-            collided = true;
+            _collided = true;
             System.out.println("Collision Imminent, stopping...");  
             Engines.breakBot();
             BoardLights.alarmLights();
         }
     }
 
+    public static boolean hasCollided()
+    {
+        return _collided;
+    }
 }

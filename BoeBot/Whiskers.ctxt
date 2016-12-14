@@ -7,4 +7,6 @@ comment1.target=void\ collisionCheck(boolean,\ boolean)
 comment1.text=\r\n\ Controleer\ wat\ voor\ soort\ botsing\ er\ is.\r\n
 comment2.params=collided
 comment2.target=void\ collided(boolean)
-numComments=3
+comment3.params=
+comment3.target=boolean\ hasCollided()
+numComments=4
