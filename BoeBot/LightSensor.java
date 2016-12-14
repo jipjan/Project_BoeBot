@@ -60,11 +60,8 @@ public class LightSensor
     private static void crossRoad()
     {
         System.out.println("Triggered!");
-        if (_speedQueue.peek() == null)
-        {
-            stopAutoDrive();
-            Engines.setSpeed(Speed.STOP);
-        }
+        if (_speedQueue.peek() == null)        
+            Engines.breakBot();  
         else
         {
             Engines.setSpeed(_speedQueue.poll(), true);
