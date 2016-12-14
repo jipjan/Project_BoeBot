@@ -66,8 +66,10 @@ public class LightSensor
             Engines.setSpeed(Speed.STOP);
         }
         else
+        {
             Engines.setSpeed(_speedQueue.poll(), true);
-        BoeBot.wait(1000);
+            BoeBot.wait(1000);
+        }
     }
 
     private static boolean isBlack(int input)
