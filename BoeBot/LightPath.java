@@ -7,11 +7,19 @@ public class LightPath
     public static void defaultPath()
     {
         _path.clear();
-        _path.add(PathItem.LEFT);
+        _path.add(PathItem.UP);
         _path.add(PathItem.RIGHT);
         _path.add(PathItem.UP);
+        _path.add(PathItem.UP);
         _path.add(PathItem.LEFT);
+        _path.add(PathItem.UP);
         _path.add(PathItem.LEFT);
+        _path.add(PathItem.UP);
+        _path.add(PathItem.LEFT);
+        _path.add(PathItem.UP);
+        _path.add(PathItem.UP);
+        _path.add(PathItem.RIGHT);
+        _path.add(PathItem.UP);
     }   
 
     public static List<PathItem> getPathList()
