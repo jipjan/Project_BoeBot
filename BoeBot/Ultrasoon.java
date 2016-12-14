@@ -7,21 +7,29 @@ import java.util.concurrent.*;
  * 
  * @author Groep B1
  */
-public class Ultrasoon extends BaseCollider
+public class Ultrasoon
 {
+    private static boolean _collided;
+    private static ScheduledFuture<?> _timer;
+    
     /*
      * Start de detectie met de ultrasoon sensor.
      */
     public static void startDetection()
     {      
-        startDetection("Ultrasoon", () -> 
+        System.out.println("Starting " + "Ultrasoon" + " Collision Detection...");        
+        if (_timer != null && !_timer.isDone())        
+            System.out.println("Already running, returning..");            
+        else
+            _timer = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
             {
                 BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, true);
                 BoeBot.wait(1);
                 BoeBot.digitalWrite(Constants.ULTRASOON_IN_PIN, false);
 
-                collisionCheck(BoeBot.pulseIn(Constants.ULTRASOON_OUT_PIN, true, 10000));                
-            }, 100);  
+                collisionCheck(BoeBot.pulseIn(Constants.ULTRASOON_OUT_PIN, true, 10000));     
+            }
+            , 0, 100, MILLISECONDS);                 
     }
 
     /*
@@ -41,6 +49,17 @@ public class Ultrasoon extends BaseCollider
                 BoardLights.stop();
             }
         }
-    }  
+    }
+    
+    protected static void collided(boolean collided)
+    {
+        if (!collided)
+        {
+            collided = true;
+            System.out.println("Collision Imminent, stopping...");  
+            Engines.breakBot();
+            BoardLights.alarmLights();
+        }
+    }
 
 }

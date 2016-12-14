@@ -5,4 +5,6 @@ comment0.text=\r\n\ Start\ de\ detectie\ van\ een\ botsing\ met\ de\ voelspriete
 comment1.params=left\ right
 comment1.target=void\ collisionCheck(boolean,\ boolean)
 comment1.text=\r\n\ Controleer\ wat\ voor\ soort\ botsing\ er\ is.\r\n
-numComments=2
+comment2.params=collided
+comment2.target=void\ collided(boolean)
+numComments=3

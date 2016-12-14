@@ -7,18 +7,26 @@ import java.util.concurrent.*;
  * 
  * @author Groep B1
  */
-public class Whiskers extends BaseCollider
+public class Whiskers
 {
+    protected static boolean _collided;
+    protected static ScheduledFuture<?> _timer;
+    
     /*
      * Start de detectie van een botsing met de voelsprieten.
      */
     public static void startDetection()
     {
-        startDetection("Whiskers", () -> 
+         System.out.println("Starting " + "Whiskers" + " Collision Detection...");        
+        if (_timer != null && !_timer.isDone())        
+            System.out.println("Already running, returning..");            
+        else
+            _timer = TimerHandler.Timer.scheduleWithFixedDelay(() -> {
                 collisionCheck(
                     !BoeBot.digitalRead(Constants.WHISKER_LEFT_PIN),
                     !BoeBot.digitalRead(Constants.WHISKER_RIGHT_PIN)
-                ), 100);
+                );
+            }, 0, 100, MILLISECONDS); 
     }
 
     /*
@@ -39,4 +47,14 @@ public class Whiskers extends BaseCollider
         }
     }   
 
+    protected static void collided(boolean collided)
+    {
+        if (!collided)
+        {
+            collided = true;
+            System.out.println("Collision Imminent, stopping...");  
+            Engines.breakBot();
+            BoardLights.alarmLights();
+        }
+    }
 }

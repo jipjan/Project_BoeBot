@@ -5,4 +5,6 @@ comment0.text=\r\n\ Start\ de\ detectie\ met\ de\ ultrasoon\ sensor.\r\n
 comment1.params=pulse
 comment1.target=void\ collisionCheck(int)
 comment1.text=\r\n\ Controleer\ of\ er\ een\ object\ te\ dichtbij\ aan\ het\ komen\ is\ en\ stop\ eventueel.\r\n
-numComments=2
+comment2.params=collided
+comment2.target=void\ collided(boolean)
+numComments=3

@@ -5,7 +5,7 @@ import java.util.concurrent.*;
  * Basis class voor alle boetsing sensoren.
  * @author Groep B1
  */
-public abstract class BaseCollider
+public interface BaseCollider
 {
     protected static boolean _collided;
     protected static ScheduledFuture<?> _timer;
