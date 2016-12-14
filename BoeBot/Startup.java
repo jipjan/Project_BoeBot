@@ -10,7 +10,8 @@ public class Startup
     {
         //CollisionDetection.start();
         //BluetoothListener.start();
-        //RemoteListener.startReading();
         LightSensor.startAutoDrive();
+        while(true)
+            RemoteListener.startReading();
     }
 }

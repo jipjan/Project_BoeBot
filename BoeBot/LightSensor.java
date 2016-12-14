@@ -71,5 +71,6 @@ public class LightSensor
     public static void stopAutoDrive()
     {
         if (_sensor != null) _sensor.cancel(true);
+        _speedQueue.clear();
     }
 }

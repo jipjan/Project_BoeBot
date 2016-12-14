@@ -39,6 +39,7 @@ public class BluetoothListener extends BaseListener
 
     private static void driveHandling(char data)
     {
+        LightSensor.stopAutoDrive();
         switch(data)
         {
             case 'w': Engines.setSpeed(Speed.MAX); break; 
@@ -51,9 +52,7 @@ public class BluetoothListener extends BaseListener
             case 'c': Engines.setSpeed(Speed.HALF_RIGHT_REVERSE); break;
             case ' ': Engines.breakBot(); break;
 
-            case 'r': 
-            LightPath.defaultPath();
-            LightSensor.stopAutoDrive();
+            case 'r':
             LightSensor.startAutoDrive();
             break;
             
