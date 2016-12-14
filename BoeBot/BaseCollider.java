@@ -34,7 +34,7 @@ public class BaseCollider
         if (!collided)
         {
             collided = true;
-            System.out.println("Collision Imminent, stopping...");               
+            System.out.println("Collision Imminent, stopping...");  
             Engines.breakBot();
             BoardLights.alarmLights();
         }
