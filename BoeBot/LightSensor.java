@@ -61,7 +61,10 @@ public class LightSensor
     {
         System.out.println("Triggered!");
         if (_speedQueue.peek() == null)
+        {
+            stopAutoDrive();
             Engines.setSpeed(Speed.STOP);
+        }
         else
             Engines.setSpeed(_speedQueue.poll(), true);
         BoeBot.wait(1000);
