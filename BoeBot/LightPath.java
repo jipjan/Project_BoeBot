@@ -26,8 +26,8 @@ public class LightPath
             switch(i)
             {
                 case UP: q.add(Speed.MAX); break;
-                case LEFT: q.add(Speed.LEFT); break;
-                case RIGHT: q.add(Speed.RIGHT); break;
+                case LEFT: q.add(Speed.HALF_LEFT); break;
+                case RIGHT: q.add(Speed.HALF_RIGHT); break;
             }
         return q;
     }
