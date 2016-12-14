@@ -89,5 +89,6 @@ public class RemoteListener
             DrivePatern.squareRight();
             break;
         }
+        BoeBot.wait(50);
     }
 }
