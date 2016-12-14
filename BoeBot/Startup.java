@@ -9,6 +9,7 @@ public class Startup
     public static void main(String[] args)
     {
         LightPath.defaultPath();
+        CollisionDetection.start();
         LightSensor.startAutoDrive();
         while (true)
         {
@@ -16,11 +17,11 @@ public class Startup
             BoeBot.wait(500);
         }
         /*
-        CollisionDetection.start();
+
         BluetoothListener.start();
         LightSensor.startAutoDrive();
         while(true)
-            RemoteListener.startReading();
-            */
+        RemoteListener.startReading();
+         */
     }
 }
