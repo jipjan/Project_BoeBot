@@ -19,6 +19,7 @@ public class LightSensor
         }
         
         _speedQueue = LightPath.getPathListAsSpeedQueue();
+        Engines.setSpeed(Speed.MAX);
         _sensor = TimerHandler.Timer.scheduleWithFixedDelay(() ->
             {
                 boolean left = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_LEFT));
