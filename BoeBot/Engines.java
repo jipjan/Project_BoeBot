@@ -66,7 +66,7 @@ public class Engines
     public static void breakBot()
     {        
         if (_speedTimer != null) _speedTimer.cancel(true);
-        LightSensor.stopAutoDrive();
+        LightSensor.pauseAutoDrive();
         EnginePaternBuilder.getInstance().stop();
         setSpeed(Speed.STOP);
     }
