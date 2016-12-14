@@ -12,7 +12,9 @@ public enum Speed
     HALF_LEFT(200, 50),
     HALF_RIGHT(50, 200),
     LINE_LEFT(100, 0),
-    LINE_RIGHT(0, 100);
+    LINE_RIGHT(0, 100),
+    CROSS_LEFT(200, -50),
+    CROSS_RIGHT(-50, 200);
 
     public final int Left, Right;
 
