@@ -24,6 +24,8 @@ public class LightSensor
                 boolean left = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_LEFT));
                 boolean center = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_CENTER));
                 boolean right = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_RIGHT));
+                
+                System.out.println("Links: " + left + " Rechts: " + right + " Center: " + center);
 
                 Speed speed = Engines.getCurrentSpeed();
                 if (!center && !left && !right)
@@ -32,8 +34,8 @@ public class LightSensor
                 {
                     if (!left && !right)
                         speed = Speed.MAX;
-                    else if (left && right)
-                        crossRoad();
+                    //else if (left && right)
+                    //    crossRoad();
                     else if (left)
                         speed = Speed.HALF_LEFT;
                     else if (right)

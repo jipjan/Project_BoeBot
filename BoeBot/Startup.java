@@ -8,8 +8,9 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        LightPath.defaultPath();
-        LightSensor.startAutoDrive();      
+        CollisionDetection.start();
         BluetoothListener.start();
+        RemoteListener.startReading();
+        LightSensor.startAutoDrive();
     }
 }
