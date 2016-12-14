@@ -35,6 +35,8 @@ public class BluetoothListener extends BaseListener
             data = (char) conn.readByte();
         } while (data != Constants.BEGIN_END_PATH_CHAR);
         System.out.println("Path Received: " + LightPath.pathAsString());
+        LightSensor.stopAutoDrive();
+        LightSensor.startAutoDrive();
     }
 
     private static void driveHandling(char data)
