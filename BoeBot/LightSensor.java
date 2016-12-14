@@ -17,7 +17,7 @@ public class LightSensor
             System.out.println("Already running, returning");
             return;
         }
-        
+
         _speedQueue = LightPath.getPathListAsSpeedQueue();
         Engines.setSpeed(Speed.MAX);
         _sensor = TimerHandler.Timer.scheduleWithFixedDelay(() ->
@@ -51,16 +51,19 @@ public class LightSensor
                 Engines.setSpeed(speed, true);
             }, 0, 15, MILLISECONDS);
     }
-    
+
     public static String getValuesAsString()
     {
         return "Left: " + BoeBot.analogRead(Constants.LIGHT_SENSOR_LEFT) + ", Center: " + BoeBot.analogRead(Constants.LIGHT_SENSOR_CENTER) + ", Right: " + BoeBot.analogRead(Constants.LIGHT_SENSOR_RIGHT);
     }
-    
+
     private static void crossRoad()
     {
         System.out.println("Triggered!");
-        Engines.setSpeed(_speedQueue.poll());
+        if (_speedQueue.peek() == null)
+            Engines.setSpeed(Speed.STOP);
+        else
+            Engines.setSpeed(_speedQueue.poll(), true);
         BoeBot.wait(1000);
     }
 
