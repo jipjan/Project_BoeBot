@@ -8,9 +8,9 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        CollisionDetection.start();
-        BluetoothListener.start();
-        RemoteListener.startReading();
+        //CollisionDetection.start();
+        //BluetoothListener.start();
+        //RemoteListener.startReading();
         LightSensor.startAutoDrive();
     }
 }

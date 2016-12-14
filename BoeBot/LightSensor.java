@@ -47,7 +47,7 @@ public class LightSensor
                         speed = Speed.LINE_RIGHT; 
                 }
 
-                Engines.setSpeed(speed);
+                Engines.setSpeed(speed, true);
             }, 0, 15, MILLISECONDS);
     }
     

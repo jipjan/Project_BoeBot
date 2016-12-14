@@ -20,12 +20,24 @@ public class Engines
      * Zet de speed van beide motoren naar de ingevulde waarde.
      * @param speed     Set speed of bot, domain -200 - 200
      */
-    public static void setSpeed(Speed speed)
+    public static void setSpeed(Speed speed, boolean force)
     {
         if (_speedTimer != null) _speedTimer.cancel(true);
         BoardLights.stop();        
+        if (force)
+        {
+            leftSpeed(speed.Left);
+            rightSpeed(speed.Right);
+            _currentSpeed = speed;
+        }            
+        else
         _speedTimer = TimerHandler.Timer.scheduleAtFixedRate(() ->           
                 timerSetSpeed(speed), 0, 30, MILLISECONDS);        
+    }
+    
+    public static void setSpeed(Speed speed)
+    {
+        setSpeed(speed, false);
     }
 
     private static void timerSetSpeed(Speed speed)
