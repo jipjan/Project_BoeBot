@@ -32,8 +32,8 @@ public class LightSensor
                 {
                     if (!left && !right)
                         speed = Speed.MAX;
-                    //else if (left && right)
-                    //    crossRoad();
+                    else if (left && right)
+                        crossRoad();
                     else if (left)
                         speed = Speed.HALF_LEFT;
                     else if (right)
@@ -60,7 +60,7 @@ public class LightSensor
     {
         System.out.println("Triggered!");
         Engines.setSpeed(_speedQueue.poll());
-        BoeBot.wait(200);
+        BoeBot.wait(1000);
     }
 
     private static boolean isBlack(int input)

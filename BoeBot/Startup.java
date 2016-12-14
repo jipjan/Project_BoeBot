@@ -8,11 +8,11 @@ public class Startup
 {
     public static void main(String[] args)
     {
-        //CollisionDetection.start();
-        //BluetoothListener.start();
-        //LightSensor.startAutoDrive();
-        Whiskers.startDetection();
-        Ultrasoon.startDetection();
+        LightPath.defaultPath();
+        
+        CollisionDetection.start();
+        BluetoothListener.start();
+        LightSensor.startAutoDrive();
         while(true)
             RemoteListener.startReading();
     }
