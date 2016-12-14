@@ -34,7 +34,10 @@ public class LightSensor
                     if (!left && !right)
                         speed = Speed.MAX;
                     else if (left && right)
-                        crossRoad();
+                    {
+                        crossRoad(); 
+                        return;
+                    }
                     else if (left)
                         speed = Speed.HALF_LEFT;
                     else if (right)
