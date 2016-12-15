@@ -7,32 +7,28 @@ import java.util.concurrent.*;
  * 
  * @author Groep B1
  */
-public class Whiskers
+public class Whiskers extends BaseCollision
 {
-    protected static boolean _collided;
-    protected static ScheduledFuture<?> _timer;
+    public static final Whiskers Instance = new Whiskers();
     
     /*
      * Start de detectie van een botsing met de voelsprieten.
      */
-    public static void startDetection()
+    private Whiskers()
     {
-         System.out.println("Starting " + "Whiskers" + " Collision Detection...");        
-        if (_timer != null && !_timer.isDone())        
-            System.out.println("Already running, returning..");            
-        else
-            _timer = TimerHandler.Timer.scheduleWithFixedDelay(() -> {
+        super("Whiskers", 100);
+        setTask(() -> {
                 collisionCheck(
                     !BoeBot.digitalRead(Constants.WHISKER_LEFT_PIN),
                     !BoeBot.digitalRead(Constants.WHISKER_RIGHT_PIN)
                 );
-            }, 0, 100, MILLISECONDS); 
+            });
     }
 
     /*
      * Controleer wat voor soort botsing er is.
      */
-    private static void collisionCheck(boolean left, boolean right)
+    private void collisionCheck(boolean left, boolean right)
     {
         if (left && right)
             collided(_collided);        
@@ -45,21 +41,5 @@ public class Whiskers
             _collided = false;
             BoardLights.stop();
         }
-    }   
-
-    protected static void collided(boolean collided)
-    {
-        if (!_collided)
-        {
-            _collided = true;
-            System.out.println("Collision Imminent, stopping...");  
-            Engines.breakBot();
-            BoardLights.alarmLights();
-        }
-    }
-    
-    public static boolean hasCollided()
-    {
-        return _collided;
     }
 }

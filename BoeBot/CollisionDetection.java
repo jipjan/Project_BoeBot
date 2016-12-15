@@ -1,13 +1,22 @@
 public class CollisionDetection
 {
+    static Ultrasoon _t;
+    static Whiskers _w;
+    
     public static void start()
     {
-        Whiskers.startDetection();
-        Ultrasoon.startDetection();
+        _t = Ultrasoon.Instance;
+        _w = Whiskers.Instance;
+    }
+    
+    public static void stop()
+    {
+        _t.stop();
+        _w.stop();
     }
     
     public static boolean hasCollided()
     {
-        return Ultrasoon.hasCollided() || Whiskers.hasCollided();
+        return Ultrasoon.Instance.hasCollided() || Whiskers.Instance.hasCollided();
     }
 }
