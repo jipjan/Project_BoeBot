@@ -7,7 +7,7 @@ public class RemoteListener
         LightSensor.stopAutoDrive();
         if (!CollisionDetection.hasCollided())
         {
-            EnginePaternBuilder.getInstance().stop();
+
             switch (input)
             {            
                 case 0:            
@@ -62,16 +62,9 @@ public class RemoteListener
             BoardLights.rightLights();
             break;
 
-            case 29:
-            DrivePatern.squareLeft();
-            break;
 
             case 9:
             Engines.turnDegrees(180);            
-            break;
-
-            case 23:
-            DrivePatern.infinite();
             break;
 
             case 18:
@@ -86,9 +79,7 @@ public class RemoteListener
             LightSensor.startAutoDrive();
             break;
 
-            case 56:
-            DrivePatern.squareRight();
-            break;
+
         }
         BoeBot.wait(50);
     }

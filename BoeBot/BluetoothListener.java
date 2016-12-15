@@ -58,7 +58,7 @@ public class BluetoothListener extends BaseListener
             LightSensor.startAutoDrive();
             break;
             
-            case '1': DrivePatern.infinite(); break;
+
         }
         System.out.println("Received: " + data);
     }
