@@ -7,6 +7,7 @@ public class LightSensor
 {
     private static ScheduledFuture<?> _sensor;
     private static Queue<Speed> _speedQueue;
+    private static boolean _pause = false;
 
     public static void startAutoDrive()
     {
@@ -22,6 +23,7 @@ public class LightSensor
         Engines.setSpeed(Speed.MAX);
         _sensor = TimerHandler.Timer.scheduleWithFixedDelay(() ->
             {
+                if (_pause) return;
                 boolean left = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_LEFT));
                 boolean center = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_CENTER));
                 boolean right = isBlack(BoeBot.analogRead(Constants.LIGHT_SENSOR_RIGHT));               
@@ -75,6 +77,16 @@ public class LightSensor
     private static boolean isBlack(int input)
     {
         return input > Constants.TRIGGER_BLACK;
+    }
+    
+    public static void pause()
+    {
+        _pause = true;
+    }
+    
+    public static void resume()
+    {
+        _pause = false;
     }
 
     public static void stopAutoDrive()

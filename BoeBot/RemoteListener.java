@@ -4,7 +4,7 @@ public class RemoteListener
     public static void startReading()
     {
         int input = RemoteControl.getRemoteInput();        
-        LightSensor.stopAutoDrive();
+        LightSensor.pause();
         if (!CollisionDetection.hasCollided())
         {
 
@@ -76,10 +76,8 @@ public class RemoteListener
             break;
 
             case 21:
-            LightSensor.startAutoDrive();
+            LightSensor.resume();
             break;
-
-
         }
         BoeBot.wait(50);
     }
