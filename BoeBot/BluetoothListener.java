@@ -1,6 +1,8 @@
 import TI.*;
 import java.nio.charset.*;
 import java.util.List;
+import java.util.ArrayList;
+import java.awt.Point;
 
 public class BluetoothListener extends BaseListener
 {
@@ -14,6 +16,8 @@ public class BluetoothListener extends BaseListener
                 char data = (char) conn.readByte();                
                 if (data == Constants.BEGIN_END_PATH_CHAR)
                     pathHandling(data);
+                else if (data == Constants.BEGIN_END_COORDINATE_CHAR)
+                    pointHandling(data);
                 else
                     driveHandling(data);
             }, 20);
@@ -57,9 +61,28 @@ public class BluetoothListener extends BaseListener
             case 'r':
             LightSensor.startAutoDrive();
             break;
-            
 
         }
         System.out.println("Received: " + data);
+    }
+
+    private static void pointHandling(char data)
+    {
+        LightSensor.stopAutoDrive();
+        int xS = conn.readByte() - 48;
+        int yS = conn.readByte() - 48;
+        List<Point> points = new ArrayList<Point>();
+        data = (char) conn.readByte();
+        do 
+        {
+            int xE = data - 48;
+            int yE = conn.readByte() - 48;
+            points.add(new Point(xE, yE));
+            data = (char) conn.readByte();
+        } while (data != Constants.BEGIN_END_PATH_CHAR);
+        PathCalculator p = new PathCalculator(xS, yS, 6, 8);
+        p.calcPath(points.toArray(new Point[points.size()]));
+        LightSensor.stopAutoDrive();
+        LightSensor.startAutoDrive();
     }
 }

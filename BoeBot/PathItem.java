@@ -1,6 +1,6 @@
 public enum PathItem
 {
-    LEFT('a'), UP('w'), RIGHT('d');
+    LEFT('a'), UP('w'), RIGHT('d'), DOWN('s');
     
     public final char Value;
     PathItem(char c)
