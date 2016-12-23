@@ -7,7 +7,9 @@ import TI.*;
 public class Startup
 {
     public static void main(String[] args)
-    {
+    {  /*
+        Volgende methodes worden aangeroepen:
+       */
         CollisionDetection.start();
     }
 }

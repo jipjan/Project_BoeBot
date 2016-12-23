@@ -1,5 +1,8 @@
 public class CollisionDetection
-{
+{/*
+    Ultrasoon&Whiskers worden geactiveerd.
+    Als ze botsen dan stoppen ze.
+ */
     static Ultrasoon _t;
     static Whiskers _w;
     

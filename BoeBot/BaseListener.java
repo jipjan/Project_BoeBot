@@ -1,11 +1,6 @@
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
-/**
- * Abstract class BaseListener - write a description of the class here
- * 
- * @author (your name here)
- * @version (version number or date here)
- */
+
 public class BaseListener
 {
     protected static ScheduledFuture<?> _timer;

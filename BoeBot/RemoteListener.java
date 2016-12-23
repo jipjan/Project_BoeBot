@@ -1,11 +1,12 @@
 import TI.*;
 public class RemoteListener
-{    
+{   
     public static void startReading()
-    {
+    { //Leest de IR pin en wacht op een singaal.
         int input = RemoteControl.getRemoteInput();        
         LightSensor.stopAutoDrive();
         if (!CollisionDetection.hasCollided())
+        // Als er geen botsing is kan hij de volgende knoppen gebruiken:
         {
 
             switch (input)
@@ -16,6 +17,7 @@ public class RemoteListener
                 break;
 
                 case 1:
+                //Een switch tussen zacht en hard vooruit.
                 if (Engines.getCurrentSpeed() == Speed.HALF)
                     Engines.setSpeed(Speed.MAX);
                 else
@@ -30,6 +32,7 @@ public class RemoteListener
         }
 
         switch (input)
+        //verschillende knoppen die wij hanteren.
         {
             case 3:             
             Engines.setSpeed(Speed.LEFT);
@@ -51,6 +54,7 @@ public class RemoteListener
             break;
 
             case 7:
+            //Een switch tussen zacht en hard achteruit.
             if (Engines.getCurrentSpeed() == Speed.HALF_REVERSE)
                 Engines.setSpeed(Speed.MAX_REVERSE);
             else
