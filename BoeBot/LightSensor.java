@@ -70,7 +70,7 @@ public class LightSensor
         else
         {
             Engines.setSpeed(_speedQueue.poll(), true);
-            BoeBot.wait(500);
+            BoeBot.wait(400);
         }
     }
 

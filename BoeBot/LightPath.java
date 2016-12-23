@@ -20,7 +20,12 @@ public class LightPath
         _path.add(PathItem.UP);
         _path.add(PathItem.RIGHT);
         _path.add(PathItem.UP);
-    }   
+    }
+    
+    public static void setPath(ArrayList<PathItem> path)
+    {
+        _path = path;
+    }    
 
     public static List<PathItem> getPathList()
     {

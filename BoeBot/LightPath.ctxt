@@ -1,10 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=void\ defaultPath()
-comment1.params=
-comment1.target=java.util.List\ getPathList()
+comment1.params=path
+comment1.target=void\ setPath(java.util.ArrayList)
 comment2.params=
-comment2.target=java.util.Queue\ getPathListAsSpeedQueue()
+comment2.target=java.util.List\ getPathList()
 comment3.params=
-comment3.target=java.lang.String\ pathAsString()
-numComments=4
+comment3.target=java.util.Queue\ getPathListAsSpeedQueue()
+comment4.params=
+comment4.target=java.lang.String\ pathAsString()
+numComments=5
