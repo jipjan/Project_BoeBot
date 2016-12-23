@@ -27,6 +27,7 @@ public class Constants
     public static final int LIGHT_SENSOR_RIGHT = 2;
     
     public static final char BEGIN_END_PATH_CHAR = ';';
+    public static final char BEGIN_END_COORDINATE_CHAR = ':';
     
     public static final int TRIGGER_BLACK = 500;
 }

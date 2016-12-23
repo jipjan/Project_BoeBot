@@ -4,7 +4,7 @@ public class RemoteListener
     public static void startReading()
     { //Leest de IR pin en wacht op een singaal.
         int input = RemoteControl.getRemoteInput();        
-        LightSensor.stopAutoDrive();
+        LightSensor.pause();
         if (!CollisionDetection.hasCollided())
         // Als er geen botsing is kan hij de volgende knoppen gebruiken:
         {
@@ -80,10 +80,8 @@ public class RemoteListener
             break;
 
             case 21:
-            LightSensor.startAutoDrive();
+            LightSensor.resume();
             break;
-
-
         }
         BoeBot.wait(50);
     }

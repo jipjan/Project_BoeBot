@@ -1,9 +1,11 @@
 import TI.*;
 import java.nio.charset.*;
 import java.util.List;
+import java.util.ArrayList;
+import java.awt.Point;
 
 public class BluetoothListener extends BaseListener
-{//Luisterd naar een bluetooth singaal dat gestuurd wordt.
+{
     static SerialConnection conn = new SerialConnection(115200);
 
     public static void start()
@@ -14,15 +16,15 @@ public class BluetoothListener extends BaseListener
                 char data = (char) conn.readByte();                
                 if (data == Constants.BEGIN_END_PATH_CHAR)
                     pathHandling(data);
-                    //roept pathHandeling aan
+                else if (data == Constants.BEGIN_END_COORDINATE_CHAR)
+                    pointHandling(data);
                 else
                     driveHandling(data);
-                    //roept driveHandlling aan
             }, 20);
     }
 
     private static void pathHandling(char data)
-    {//vraagt w,a,d op en zal deze uitvoeren bij pathHandling
+    {
         data = (char) conn.readByte();
         List<PathItem> list = LightPath.getPathList();
         list.clear();
@@ -42,7 +44,7 @@ public class BluetoothListener extends BaseListener
     }
 
     private static void driveHandling(char data)
-    {//vraagt vrschillende toetsen op en voert deze uit met de bijbehordende snelheid.
+    {
         LightSensor.stopAutoDrive();
         switch(data)
         {
@@ -58,11 +60,29 @@ public class BluetoothListener extends BaseListener
 
             case 'r':
             LightSensor.startAutoDrive();
-            //laat het ingevoerde path afspelen
             break;
-            
 
         }
         System.out.println("Received: " + data);
+    }
+
+    private static void pointHandling(char data)
+    {
+        LightSensor.stopAutoDrive();
+        int xS = conn.readByte() - 48;
+        int yS = conn.readByte() - 48;
+        List<Point> points = new ArrayList<Point>();
+        data = (char) conn.readByte();
+        do 
+        {
+            int xE = data - 48;
+            int yE = conn.readByte() - 48;
+            points.add(new Point(xE, yE));
+            data = (char) conn.readByte();
+        } while (data != Constants.BEGIN_END_PATH_CHAR);
+        PathCalculator p = new PathCalculator(xS, yS, 6, 8);
+        p.calcPath(points.toArray(new Point[points.size()]));
+        LightSensor.stopAutoDrive();
+        LightSensor.startAutoDrive();
     }
 }
