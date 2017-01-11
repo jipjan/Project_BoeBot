@@ -1,12 +1,17 @@
 #BlueJ class context
 comment0.params=xStart\ yStart\ width\ height
 comment0.target=PathCalculator(int,\ int,\ int,\ int)
-comment1.params=end
-comment1.target=java.util.ArrayList\ calcPath(java.awt.Point[])
-comment2.params=
-comment2.target=void\ updateX()
-comment3.params=
-comment3.target=void\ updateY()
+comment1.params=turnDirection
+comment1.target=LookAndPath\ turnCalc(Look)
+comment2.params=turnDirection\ list
+comment2.target=int\ turn(Look,\ java.util.ArrayList)
+comment3.params=end
+comment3.target=java.util.ArrayList\ calcPath(java.awt.Point[])
 comment4.params=
-comment4.target=java.awt.Point\ CurrentLocation()
-numComments=5
+comment4.target=Look\ getCurrentLook()
+comment5.params=l
+comment5.target=void\ setLook(Look)
+comment6.params=
+comment6.target=java.awt.Point\ CurrentLocation()
+comment6.text=\r\n\ \ \ \ private\ LookAndPath\ turn(Look\ wayToLook)\r\n\ \ \ \ {\r\n\ \ \ \ if\ (wayToLook\ \=\=\ Look.UP)\r\n\ \ \ \ {\r\n\ \ \ \ if\ (_look\ \=\=\ Look.RIGHT)\r\n\ \ \ \ }\r\n\ \ \ \ }\r\n
+numComments=7

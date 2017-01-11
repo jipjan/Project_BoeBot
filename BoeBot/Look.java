@@ -1,4 +1,4 @@
 public enum Look
 {
-    LEFT, RIGHT, DOWN, UP
+    LEFT, RIGHT, DOWN, UP, EMPTY
 }
