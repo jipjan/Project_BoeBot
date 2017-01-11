@@ -11,10 +11,12 @@ public class Startup
     public static void main(String[] args)
     {
         //BluetoothListener.start();
+        
+        // PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
         PathCalculator p = new PathCalculator(0, 3, 8, 8);
 
         // Senario 1.1
-        printPath(p.calcPath(new Point(3, 0)), 1);
+        printPath(p.calcPath(new Point(0, 6)), 1);
         // printPath(p.calcPath(new Point(0, 5)), 2);
         // UP,LEFT,UP klopt niet hij wilt niet omdraaien ingeval de coordianten er onder liggen.
 

@@ -88,13 +88,13 @@ public class PathCalculator
 
             if (p.y > _current.y)            
             {
-                offset = turn(Look.DOWN, toReturn);
+                offset = turn(Look.UP, toReturn);
                 for (int y = _current.y; y < p.y + offset; y++)
                     toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));            
             }
             else if (p.y < _current.y)                           
             {
-                offset = turn(Look.UP, toReturn);
+                offset = turn(Look.DOWN, toReturn);
                 for (int y = _current.y; y + offset > p.y; y--)
                     toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));            
             }
