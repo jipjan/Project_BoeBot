@@ -12,6 +12,7 @@ comment4.target=Look\ getCurrentLook()
 comment5.params=l
 comment5.target=void\ setLook(Look)
 comment6.params=
-comment6.target=java.awt.Point\ CurrentLocation()
-comment6.text=\r\n\ \ \ \ private\ LookAndPath\ turn(Look\ wayToLook)\r\n\ \ \ \ {\r\n\ \ \ \ if\ (wayToLook\ \=\=\ Look.UP)\r\n\ \ \ \ {\r\n\ \ \ \ if\ (_look\ \=\=\ Look.RIGHT)\r\n\ \ \ \ }\r\n\ \ \ \ }\r\n
-numComments=7
+comment6.target=java.awt.Point\ getCurrentLocation()
+comment7.params=p
+comment7.target=void\ setCurrentLocation(java.awt.Point)
+numComments=8

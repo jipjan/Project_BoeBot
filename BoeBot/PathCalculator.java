@@ -3,7 +3,7 @@ import java.awt.Point;
 
 public class PathCalculator
 {    
-    Point _current;
+    Point _current, _calcCurrent;
     int _width, _height;    
     Look _currentLook;
     Look _calcLook;
@@ -15,7 +15,7 @@ public class PathCalculator
         else
             _currentLook = _calcLook = Look.UP;
 
-        _current = new Point(xStart, yStart);
+        _current = _calcCurrent = new Point(xStart, yStart);
         _width = width;
         _height = height;
     }
@@ -70,34 +70,36 @@ public class PathCalculator
     {        
         ArrayList<LookAndPath> toReturn = new ArrayList<LookAndPath>();
         LookAndPath _lPCalc;
+        _calcCurrent = _current;
         for (Point p : end)
         {   
             int offset = 0;
-            if (p.x > _current.x)             
+            if (p.x > _calcCurrent.x)             
             {
                 offset = turn(Look.RIGHT, toReturn);
-                for (int x = _current.x; x < p.x + offset; x++)
+                for (int x = _calcCurrent.x; x < p.x + offset; x++)
                     toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));         
             }
-            else if (p.x < _current.x)
+            else if (p.x < _calcCurrent.x)
             {
                 offset = turn(Look.LEFT, toReturn);
-                for (int x = _current.x; x + offset > p.x ; x--)
+                for (int x = _calcCurrent.x; x + offset > p.x ; x--)
                     toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));
             }
 
-            if (p.y > _current.y)            
+            if (p.y > _calcCurrent.y)            
             {
                 offset = turn(Look.UP, toReturn);
-                for (int y = _current.y; y < p.y + offset; y++)
+                for (int y = _calcCurrent.y; y < p.y + offset; y++)
                     toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));            
             }
-            else if (p.y < _current.y)                           
+            else if (p.y < _calcCurrent.y)                           
             {
                 offset = turn(Look.DOWN, toReturn);
-                for (int y = _current.y; y + offset > p.y; y--)
+                for (int y = _calcCurrent.y; y + offset > p.y; y--)
                     toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));            
             }
+            _calcCurrent = p;
         }
         return toReturn;
     }
@@ -111,6 +113,16 @@ public class PathCalculator
     {
         _currentLook = l;
     }
+    
+    public Point getCurrentLocation()
+    {
+        return _current;
+    } 
+    
+    public void setCurrentLocation(Point p)
+    {
+        _current = p;
+    }
 
     /*
     private LookAndPath turn(Look wayToLook)
@@ -122,8 +134,5 @@ public class PathCalculator
     }
      */
 
-    public Point CurrentLocation()
-    {
-        return _current;
-    } 
+    
 }

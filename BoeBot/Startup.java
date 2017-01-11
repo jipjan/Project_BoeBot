@@ -11,12 +11,45 @@ public class Startup
     public static void main(String[] args)
     {
         //BluetoothListener.start();
-        
+
         // PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
-        PathCalculator p = new PathCalculator(0, 3, 8, 8);
+        PathCalculator p;
+
+        // 1 point scenarios
+        p = new PathCalculator(0, 3, 8, 8);
+        printPath(p.calcPath(new Point(0, 6)), 1, 1);
+        System.out.println("Expected: LEFT, UP, UP\n");
+
+        p = new PathCalculator(0, 6, 8, 8);
+        printPath(p.calcPath(new Point(5, 3)), 1, 2);
+        System.out.println("Expected: UP, UP, UP, UP, UP, RIGHT, UP, UP\n");
+
+        p = new PathCalculator(5, 0, 8, 8);
+        printPath(p.calcPath(new Point(3, 1)), 1, 3);
+        System.out.println("Expected: LEFT, UP, RIGHT\n");
+
+        p = new PathCalculator(2, 0, 8, 8);
+        printPath(p.calcPath(new Point(0, 0)), 1, 4);
+        System.out.println("Expected: LEFT, UP\n");
+
+        // 2 point scenarios
+        p = new PathCalculator(0, 3, 8, 8);        
+        printPath(p.calcPath(new Point (3,3), new Point(5, 6)), 2, 1);
+        System.out.println("Expected: UP, UP, UP, UP, UP, LEFT, UP, UP\n");        
+
+        p = new PathCalculator(0, 2, 8, 8);        
+        printPath(p.calcPath(new Point (1, 1), new Point(4, 4)), 2, 2);
+        System.out.println("Expected: UP, RIGHT, LEFT, UP, UP, LEFT, UP, UP\n");        
+
+        p = new PathCalculator(5, 0, 8, 8);        
+        printPath(p.calcPath(new Point (6, 6), new Point(2, 2)), 2, 3);
+        System.out.println("Expected: UP, UP, UP, UP, UP, LEFT, UP, UP\n");        
+
+        p = new PathCalculator(2, 0, 8, 8);        
+        printPath(p.calcPath(new Point (4, 0), new Point(0, 4)), 2, 4);
+        System.out.println("Expected: UP, UP, UP, UP, UP, LEFT, UP, UP\n");        
 
         // Senario 1.1
-        printPath(p.calcPath(new Point(0, 6)), 1);
         // printPath(p.calcPath(new Point(0, 5)), 2);
         // UP,LEFT,UP klopt niet hij wilt niet omdraaien ingeval de coordianten er onder liggen.
 
@@ -45,23 +78,23 @@ public class Startup
         //LightSensor.startAutoDrive();
     }
 
-    private static void printPath(List<LookAndPath> list, int s)
+    private static void printPath(List<LookAndPath> list, int s, int n)
     {
-        System.out.println("Senario: " + s);
+        System.out.println("Senario: " + s + "." + n);
         for (LookAndPath i : list)
         {
             switch (i.getPath())
             {
                 case UP:
-                System.out.println("UP");
+                System.out.print("UP, ");
                 break;
 
                 case LEFT:
-                System.out.println("LEFT");
+                System.out.print("LEFT, ");
                 break;
 
                 case RIGHT:
-                System.out.println("RIGHT");
+                System.out.print("RIGHT, ");
                 break;
             }
         }
