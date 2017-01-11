@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.awt.Point;
+import java.util.Stack;
 
 public class PathCalculator
 {    
-    Point _current, _calcCurrent;
+    public static ArrayList<LookPathLocation> CurrentPath = new ArrayList<LookPathLocation>();
+    static Point _current;
+    Point _calcCurrent;
     int _width, _height;    
-    Look _currentLook;
-    Look _calcLook;
+    static Look _currentLook;
+    Look _calcLook;  
 
     public PathCalculator(int xStart, int yStart, int width, int height)
     {
@@ -20,43 +23,43 @@ public class PathCalculator
         _height = height;
     }
 
-    private LookAndPath turnCalc(Look turnDirection)
+    private LookPathLocation turnCalc(Look turnDirection, Point location)
     {
         if (turnDirection == _calcLook) return null;
         if (turnDirection == Look.RIGHT)
         {
             if (_calcLook == Look.UP)            
-                return new LookAndPath(turnDirection, PathItem.RIGHT);            
+                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);            
             if (_calcLook == Look.DOWN)
-                return new LookAndPath(turnDirection, PathItem.LEFT);
+                return new LookPathLocation(turnDirection, PathItem.LEFT, location);
         }
         else if (turnDirection == Look.UP)
         {
             if (_calcLook == Look.LEFT)            
-                return new LookAndPath(turnDirection, PathItem.RIGHT);            
+                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);            
             if (_calcLook == Look.RIGHT)
-                return new LookAndPath(turnDirection, PathItem.LEFT);
+                return new LookPathLocation(turnDirection, PathItem.LEFT, location);
         }
         else if (turnDirection == Look.LEFT)
         {
             if (_calcLook == Look.UP)            
-                return new LookAndPath(turnDirection, PathItem.LEFT);            
+                return new LookPathLocation(turnDirection, PathItem.LEFT, location);            
             if (_calcLook == Look.DOWN)
-                return new LookAndPath(turnDirection, PathItem.RIGHT);
+                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);
         }
         else if (turnDirection == Look.DOWN)
         {
             if (_calcLook == Look.LEFT)            
-                return new LookAndPath(turnDirection, PathItem.LEFT);            
+                return new LookPathLocation(turnDirection, PathItem.LEFT, location);            
             if (_calcLook == Look.RIGHT)
-                return new LookAndPath(turnDirection, PathItem.RIGHT);
+                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);
         }
         return null;
     }
 
-    private int turn(Look turnDirection, ArrayList<LookAndPath> list)
+    private int turn(Look turnDirection, ArrayList<LookPathLocation> list, Point location)
     {
-        LookAndPath _lPCalc = turnCalc(turnDirection);
+        LookPathLocation _lPCalc = turnCalc(turnDirection, location);
         if (_lPCalc != null)
         {
             _calcLook = _lPCalc.getLook();
@@ -66,73 +69,82 @@ public class PathCalculator
         return 0;
     }
 
-    public ArrayList<LookAndPath> calcPath(Point... end)
+    public ArrayList<LookPathLocation> calcPath(Point... end)
     {        
-        ArrayList<LookAndPath> toReturn = new ArrayList<LookAndPath>();
-        LookAndPath _lPCalc;
+        ArrayList<LookPathLocation> toReturn = new ArrayList<LookPathLocation>();
+        LookPathLocation _lPCalc;
         _calcCurrent = _current;
         for (Point p : end)
         {   
             int offset = 0;
             if (p.x > _calcCurrent.x)             
             {
-                offset = turn(Look.RIGHT, toReturn);
+                offset = turn(Look.RIGHT, toReturn, _calcCurrent);
                 for (int x = _calcCurrent.x; x < p.x + offset; x++)
-                    toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));         
+                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(x, _calcCurrent.y)));         
             }
             else if (p.x < _calcCurrent.x)
             {
-                offset = turn(Look.LEFT, toReturn);
+                offset = turn(Look.LEFT, toReturn, _calcCurrent);
                 for (int x = _calcCurrent.x; x + offset > p.x ; x--)
-                    toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));
+                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(x, _calcCurrent.y)));
             }
 
             if (p.y > _calcCurrent.y)            
             {
-                offset = turn(Look.UP, toReturn);
+                offset = turn(Look.UP, toReturn, _calcCurrent);
                 for (int y = _calcCurrent.y; y < p.y + offset; y++)
-                    toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));            
+                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
             }
             else if (p.y < _calcCurrent.y)                           
             {
-                offset = turn(Look.DOWN, toReturn);
+                offset = turn(Look.DOWN, toReturn, _calcCurrent);
                 for (int y = _calcCurrent.y; y + offset > p.y; y--)
-                    toReturn.add(new LookAndPath(Look.EMPTY, PathItem.UP));            
+                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
             }
             _calcCurrent = p;
         }
+        CurrentPath = toReturn;
         return toReturn;
     }
+    
+    public static Stack<LookPathLocation> getPathAsLookSpeedStack(ArrayList<LookPathLocation> list)
+    {
+        Stack<LookPathLocation> s = new Stack<LookPathLocation>();
+        for (int i = list.size() - 1; i >= 0; i--)        
+            s.push(list.get(i));
+        return s;
+    }
+    
+    public static void jukeMeister(Point locToAvoid, Point locToDriveTo)
+    {
+    }    
 
-    public Look getCurrentLook()
+    public static Look getCurrentLook()
     {
         return _currentLook;
     }
 
-    public void setLook(Look l)
+    public static void setLook(Look l)
     {
         _currentLook = l;
     }
     
-    public Point getCurrentLocation()
+    public static Point getCurrentLocation()
     {
         return _current;
     } 
     
-    public void setCurrentLocation(Point p)
+    public static void setCurrentLocation(Point p)
     {
         _current = p;
     }
-
-    /*
-    private LookAndPath turn(Look wayToLook)
-    {
-    if (wayToLook == Look.UP)
-    {
-    if (_look == Look.RIGHT)
-    }
-    }
-     */
-
     
+    public static String pathToString()
+    {
+        String s = "";
+        for (LookPathLocation i : CurrentPath)
+            s += i.getPath().Value;
+        return s;
+    }
 }

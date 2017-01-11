@@ -26,19 +26,24 @@ public class BluetoothListener extends BaseListener
     private static void pathHandling(char data)
     {
         data = (char) conn.readByte();
-        List<PathItem> list = LightPath.getPathList();
+        List<LookPathLocation> list = PathCalculator.CurrentPath;
         list.clear();
+        // Rewrite dis shiet
+        
+        /*
         do 
         {
             switch (data)
             {
-                case 'w': list.add(PathItem.UP); break;
-                case 'a': list.add(PathItem.LEFT); break;
-                case 'd': list.add(PathItem.RIGHT); break;
+                case 'w': list.add(new LookPathLocation(Look.EMPTY, PathItem.UP)); break;
+                case 'a': list.add(new LookPathLocation(Look.EMPTY, PathItem.LEFT)); break;
+                case 'd': list.add(new LookPathLocation(Look.EMPTY, PathItem.RIGHT)); break;
             }
             data = (char) conn.readByte();
         } while (data != Constants.BEGIN_END_PATH_CHAR);
-        System.out.println("Path Received: " + LightPath.pathAsString());
+        */
+       
+        System.out.println("Path Received: " + PathCalculator.pathToString());
         LightSensor.stopAutoDrive();
         LightSensor.startAutoDrive();
     }

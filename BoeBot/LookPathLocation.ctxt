@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=l\ p\ loc
+comment0.target=LookPathLocation(Look,\ PathItem,\ java.awt.Point)
+comment1.params=
+comment1.target=Look\ getLook()
+comment2.params=
+comment2.target=PathItem\ getPath()
+comment3.params=
+comment3.target=java.awt.Point\ getLocation()
+comment4.params=
+comment4.target=Speed\ getSpeed()
+numComments=5

@@ -1,12 +1,13 @@
 import TI.*;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
-import java.util.Queue;
+import java.util.Stack;
+import java.awt.Point;
 
 public class LightSensor
 {
     private static ScheduledFuture<?> _sensor;
-    private static Queue<Speed> _speedQueue;
+    private static Stack<LookPathLocation> _speedStack;
     private static boolean _pause = false;
 
     public static void startAutoDrive()
@@ -19,7 +20,7 @@ public class LightSensor
             return;
         }
 
-        _speedQueue = LightPath.getPathListAsSpeedQueue();
+        _speedStack = PathCalculator.getPathAsLookSpeedStack(PathCalculator.CurrentPath);
         Engines.setSpeed(Speed.MAX);
         _sensor = TimerHandler.Timer.scheduleWithFixedDelay(() ->
             {
@@ -65,11 +66,14 @@ public class LightSensor
     private static void crossRoad()
     {
         System.out.println("Triggered!");
-        if (_speedQueue.peek() == null)        
+        if (_speedStack.peek() == null)        
             Engines.breakBot();  
         else
         {
-            Engines.setSpeed(_speedQueue.poll(), true);
+            LookPathLocation ls = _speedStack.pop();
+            Engines.setSpeed(ls.getSpeed(), true);
+            PathCalculator.setLook(ls.getLook());
+            PathCalculator.setCurrentLocation(ls.getLocation());
             BoeBot.wait(400);
         }
     }
@@ -88,10 +92,18 @@ public class LightSensor
     {
         _pause = false;
     }
-
+    
+    public static void driveAround()
+    {
+        Point nextLoc = _speedStack.pop().getLocation();
+        //PathCalculator.jukeMeister();
+        //_speedStack.push(new 
+        Engines.setSpeed(Speed.MAX_REVERSE);       
+    }
+    
     public static void stopAutoDrive()
     {
         if (_sensor != null) _sensor.cancel(true);
-        if (_speedQueue != null) _speedQueue.clear();
+        if (_speedStack != null) _speedStack.clear();
     }
 }

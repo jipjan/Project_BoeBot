@@ -49,14 +49,7 @@ public class Startup
         printPath(p.calcPath(new Point (4, 0), new Point(0, 4)), 2, 4);
         System.out.println("Expected: UP, UP, UP, UP, UP, LEFT, UP, UP\n");        
 
-        // Senario 1.1
-        // printPath(p.calcPath(new Point(0, 5)), 2);
-        // UP,LEFT,UP klopt niet hij wilt niet omdraaien ingeval de coordianten er onder liggen.
-
         /*
-
-        LightPath.setPath(new PathCalculator(3, 3, 8, 8).calcPath(new Point(2, 5)));
-
         Senario bugg 1
         printPath(new PathCalculator(6, 6, 8, 8).calcPath(new Point(4, 4)), 1);
         LightPath.setPath(new PathCalculator(6, 6, 8, 8).calcPath(new Point(4, 4)));
@@ -78,10 +71,10 @@ public class Startup
         //LightSensor.startAutoDrive();
     }
 
-    private static void printPath(List<LookAndPath> list, int s, int n)
+    private static void printPath(List<LookPathLocation> list, int s, int n)
     {
         System.out.println("Senario: " + s + "." + n);
-        for (LookAndPath i : list)
+        for (LookPathLocation i : list)
         {
             switch (i.getPath())
             {

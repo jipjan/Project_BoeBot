@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=l\ p
-comment0.target=LookAndPath(Look,\ PathItem)
-comment1.params=
-comment1.target=Look\ getLook()
-comment2.params=
-comment2.target=PathItem\ getPath()
-numComments=3
