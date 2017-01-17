@@ -41,7 +41,7 @@ public class RemoteListener
             break;
 
             case 4:            
-            Engines.breakBot();
+            Engines.breakBot();            
             break;
 
             case 5:            
@@ -81,9 +81,12 @@ public class RemoteListener
             break;
 
             case 21:
-            LightSensor.stopAutoDrive();
-            LightSensor.resume();
+            LightSensor.stopAutoDrive();            
             LightSensor.startAutoDrive();
+            break;
+            
+            case 20:
+            LightSensor.resume();
             break;
         }
         BoeBot.wait(50);

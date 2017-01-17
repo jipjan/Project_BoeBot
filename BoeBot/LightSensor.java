@@ -12,6 +12,7 @@ public class LightSensor
 
     public static void startAutoDrive()
     {
+        resume();
         System.out.println("Starting automatic driving base on light...");
 
         if (_sensor != null && !_sensor.isDone())
@@ -95,15 +96,7 @@ public class LightSensor
     public static void resume()
     {
         _pause = false;
-    }
-    
-    public static void driveAround()
-    {
-        Point nextLoc = _speedStack.pop().getLocation();
-        //PathCalculator.jukeMeister();
-        //_speedStack.push(new 
-        Engines.setSpeed(Speed.MAX_REVERSE);       
-    }
+    }    
     
     public static void stopAutoDrive()
     {
