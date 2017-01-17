@@ -7,7 +7,7 @@ import java.awt.Point;
 public class LightSensor
 {
     private static ScheduledFuture<?> _sensor;
-    private static Stack<LookPathLocation> _speedStack;
+    public static Stack<LookPathLocation> SpeedStack;
     private static boolean _pause = false;
 
     public static void startAutoDrive()
@@ -21,7 +21,7 @@ public class LightSensor
             return;
         }
 
-        _speedStack = PathCalculator.getPathAsLookSpeedStack(PathCalculator.CurrentPath);
+        SpeedStack = PathCalculator.getPathAsLookSpeedStack(PathCalculator.CurrentPath);
         Engines.setSpeed(Speed.MAX);
         _sensor = TimerHandler.Timer.scheduleWithFixedDelay(() ->
             {
@@ -67,13 +67,13 @@ public class LightSensor
     private static void crossRoad()
     {
         System.out.println("Triggered!");
-        if (_speedStack.empty()){
+        if (SpeedStack.empty()){
             System.out.println("done");
             //stopAutoDrive();
             Engines.breakBot();  
         }else
         {
-            LookPathLocation ls = _speedStack.pop();
+            LookPathLocation ls = SpeedStack.pop();
             Engines.setSpeed(ls.getSpeed(), true);
             PathCalculator.setLook(ls.getLook());
             PathCalculator.setCurrentLocation(ls.getLocation());
@@ -101,6 +101,6 @@ public class LightSensor
     public static void stopAutoDrive()
     {
         if (_sensor != null) _sensor.cancel(true);
-        if (_speedStack != null) _speedStack.clear();
+        if (SpeedStack != null) SpeedStack.clear();
     }
 }

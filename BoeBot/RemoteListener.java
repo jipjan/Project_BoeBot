@@ -86,6 +86,7 @@ public class RemoteListener
             break;
             
             case 20:
+            LightSensor.SpeedStack.pop();
             LightSensor.resume();
             break;
         }
