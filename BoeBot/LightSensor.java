@@ -58,6 +58,11 @@ public class LightSensor
                 Engines.setSpeed(speed, true);
             }, 0, 15, MILLISECONDS);
     }
+    
+    public static void setSpeedWithLine(Speed speed)
+    {
+        
+    }
 
     public static String getValuesAsString()
     {
