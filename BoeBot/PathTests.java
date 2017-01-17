@@ -85,4 +85,28 @@ public class PathTests
         p.calcPath(new Point (2, 4), new Point(2, 2));
         assertEquals("wwwwss", PathCalculator.pathToString());
     }
+    
+    @Test
+    public void scenario31()
+    {
+        p = new PathCalculator(2, 0, 8, 8);
+        p.calcPath(new Point (2, 4), new Point(0, 3), new Point(4, 5));
+        assertEquals("wwwwawaawwwaw", PathCalculator.pathToString());
+    }
+    
+    @Test
+    public void scenario32()
+    {
+        p = new PathCalculator(0, 5, 8, 8);
+        p.calcPath(new Point (3, 2), new Point(1, 1), new Point(2, 2));
+        assertEquals("wwwdwwdwaaa", PathCalculator.pathToString());
+    }
+    
+    @Test
+    public void scenario33()
+    {
+        p = new PathCalculator(0, 1, 8, 8);
+        p.calcPath(new Point (1, 2), new Point(2, 3));
+        assertEquals("wada", PathCalculator.pathToString());
+    }
 }

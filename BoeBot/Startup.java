@@ -15,11 +15,7 @@ public class Startup
         // PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
         PathCalculator p; 
 
-        p = new PathCalculator(2, 0, 8, 8);        
-        printPath(p.calcPath(new Point (2, 4), new Point(2, 2)), 2, 5);
-        System.out.println("Expected: UP, UP, UP, UP, LEFT, LEFT, LEFT, RIGHT\n");
-        
-        
+            
         
         
         
