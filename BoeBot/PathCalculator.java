@@ -100,10 +100,10 @@ public class PathCalculator
             {
                 if (_calcCurrent.y >= _height - 1)
                     toReturn.add(new LookPathLocation(Look.DOWN, PathItem.DOWN, location));
-                
+
                 if (_calcCurrent.x > 0) {
                     toReturn.add(new LookPathLocation(Look.LEFT, PathItem.LEFT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.LEFT, calcLoc(location, -1, -1)));
                 } else {
                     toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.RIGHT, location));
                     toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
@@ -115,6 +115,11 @@ public class PathCalculator
         return toReturn;
     }
 
+    private Point calcLoc(Point p, int x, int y)
+    {
+        return new Point(p.x + x, p.y + y);
+    }
+
     private int turn(Look turnDirection, ArrayList<LookPathLocation> list, Point location)
     {
         ArrayList<LookPathLocation> _lPCalc = turnCalc(turnDirection, location);
@@ -123,6 +128,7 @@ public class PathCalculator
             for (LookPathLocation i : _lPCalc)
             {
                 _calcLook = i.getLook();
+                _calcCurrent = i.getLocation();
                 list.add(i);                
             }
             return -1;
@@ -138,6 +144,16 @@ public class PathCalculator
         for (Point p : end)
         {   
             int offset = 0;
+            if (p.x > _calcCurrent.x)
+                offset = turn(Look.RIGHT, toReturn, _calcCurrent);
+            else if (p.x < _calcCurrent.x)
+                offset = turn(Look.LEFT, toReturn, _calcCurrent);
+
+            if (p.y > _calcCurrent.y)
+                offset = turn(Look.UP, toReturn, _calcCurrent);
+            else if (p.y < _calcCurrent.y)
+                offset = turn(Look.DOWN, toReturn, _calcCurrent);           
+
             if (p.x > _calcCurrent.x)             
             {
                 offset = turn(Look.RIGHT, toReturn, _calcCurrent);
@@ -159,7 +175,7 @@ public class PathCalculator
             }
             else if (p.y < _calcCurrent.y)                           
             {
-                offset = turn(Look.DOWN, toReturn, _calcCurrent);
+                offset = turn(Look.DOWN, toReturn, _calcCurrent); 
                 for (int y = _calcCurrent.y; y + offset > p.y; y--)
                     toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
             }

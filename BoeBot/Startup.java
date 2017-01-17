@@ -51,7 +51,7 @@ public class Startup
 
         p = new PathCalculator(2, 0, 8, 8);        
         printPath(p.calcPath(new Point (2, 4), new Point(2, 2)), 2, 5);
-        System.out.println("Expected: \n");
+        System.out.println("Expected: UP, UP, UP, UP, LEFT, LEFT, LEFT, RIGHT\n");
         
         /*
         Senario bugg 1
