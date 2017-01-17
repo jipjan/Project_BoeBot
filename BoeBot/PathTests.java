@@ -83,6 +83,6 @@ public class PathTests
     {
         p = new PathCalculator(2, 0, 8, 8);
         p.calcPath(new Point (2, 4), new Point(2, 2));
-        assertEquals("wwwwaaad", PathCalculator.pathToString());
+        assertEquals("wwwwss", PathCalculator.pathToString());
     }
 }

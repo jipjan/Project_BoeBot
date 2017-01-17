@@ -125,7 +125,7 @@ public class PathCalculator
                     if (_calcLook == Look.DOWN)
                         toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
                     else
-                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));                                 
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, new Point(_calcCurrent.x, y)));                                 
             }
             _calcCurrent = p;
         }
