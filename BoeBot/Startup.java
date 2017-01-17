@@ -11,7 +11,7 @@ public class Startup
     public static void main(String[] args)
     {
         BluetoothListener.start();
-        //CollisionDetection.start();
+        CollisionDetection.start();
 
          //PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
         
