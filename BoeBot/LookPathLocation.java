@@ -36,6 +36,7 @@ public class LookPathLocation
             case LEFT: return Speed.CROSS_LEFT;
             case RIGHT: return Speed.CROSS_RIGHT;
             case DOWN: return Speed.MAX_REVERSE;
+            case REVERSE: return Speed.LEFT;
             default: return Speed.STOP;
         }
     }    

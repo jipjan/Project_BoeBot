@@ -74,6 +74,8 @@ public class LightSensor
             Engines.setSpeed(ls.getSpeed(), true);
             PathCalculator.setLook(ls.getLook());
             PathCalculator.setCurrentLocation(ls.getLocation());
+            if (ls.getPath() == PathItem.REVERSE)
+                BoeBot.wait(200);
             BoeBot.wait(400);
         }
     }
