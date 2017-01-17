@@ -14,36 +14,10 @@ public class Startup
 
         // PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
         PathCalculator p;
+      
+ 
 
-        // 1 point scenarios
-        p = new PathCalculator(0, 3, 8, 8);
-        printPath(p.calcPath(new Point(0, 6)), 1, 1);
-        System.out.println("Expected: LEFT, UP, UP\n");
-
-        p = new PathCalculator(0, 6, 8, 8);
-        printPath(p.calcPath(new Point(5, 3)), 1, 2);
-        System.out.println("Expected: UP, UP, UP, UP, UP, RIGHT, UP, UP\n");
-
-        p = new PathCalculator(5, 0, 8, 8);
-        printPath(p.calcPath(new Point(3, 1)), 1, 3);
-        System.out.println("Expected: LEFT, UP, RIGHT\n");
-
-        p = new PathCalculator(2, 0, 8, 8);
-        printPath(p.calcPath(new Point(0, 0)), 1, 4);
-        System.out.println("Expected: LEFT, UP\n");
-
-        // 2 point scenarios
-        p = new PathCalculator(0, 3, 8, 8);        
-        printPath(p.calcPath(new Point (3,3), new Point(5, 6)), 2, 1);
-        System.out.println("Expected: UP, UP, UP, UP, UP, LEFT, UP, UP\n");        
-
-        p = new PathCalculator(0, 2, 8, 8);        
-        printPath(p.calcPath(new Point (1, 1), new Point(4, 4)), 2, 2);
-        System.out.println("Expected: UP, RIGHT, LEFT, UP, UP, LEFT, UP, UP\n");        
-
-        p = new PathCalculator(5, 0, 8, 8);        
-        printPath(p.calcPath(new Point (6, 6), new Point(2, 2)), 2, 3);
-        System.out.println("Expected: RIGHT, LEFT, UP, UP, UP, UP, UP, LEFT, UP, UP, UP, LEFT, UP, UP, UP\n");        
+ 
 
         p = new PathCalculator(2, 0, 8, 8);        
         printPath(p.calcPath(new Point (4, 0), new Point(0, 4)), 2, 4);
@@ -53,6 +27,20 @@ public class Startup
         printPath(p.calcPath(new Point (2, 4), new Point(2, 2)), 2, 5);
         System.out.println("Expected: UP, UP, UP, UP, LEFT, LEFT, LEFT, RIGHT\n");
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         p = new PathCalculator(4, 0, 8, 8);        
+        printPath(p.calcPath(new Point (2, 4), new Point(2, 2), new Point(5,5)), 3, 1);
+        System.out.println("Expected: \n");
         /*
         Senario bugg 1
         printPath(new PathCalculator(6, 6, 8, 8).calcPath(new Point(4, 4)), 1);
