@@ -75,7 +75,7 @@ public class PathTests
     {
         p = new PathCalculator(2, 0, 8, 8);
         p.calcPath(new Point (4, 0), new Point(0, 4));
-        assertEquals("dwawwwawww", PathCalculator.pathToString());
+        assertEquals("dwssssawww", PathCalculator.pathToString());
     }
     
     @Test

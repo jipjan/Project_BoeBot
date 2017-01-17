@@ -13,15 +13,7 @@ public class Startup
         //BluetoothListener.start();
 
         // PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
-        PathCalculator p;
-      
- 
-
- 
-
-        p = new PathCalculator(2, 0, 8, 8);        
-        printPath(p.calcPath(new Point (4, 0), new Point(0, 4)), 2, 4);
-        System.out.println("Expected: RIGHT, UP, LEFT, UP, UP, UP, LEFT, UP, UP, UP\n");
+        PathCalculator p; 
 
         p = new PathCalculator(2, 0, 8, 8);        
         printPath(p.calcPath(new Point (2, 4), new Point(2, 2)), 2, 5);
@@ -80,6 +72,10 @@ public class Startup
 
                 case RIGHT:
                 System.out.print("RIGHT, ");
+                break;
+                
+                case DOWN:
+                System.out.print("DOWN, ");
                 break;
             }
         }

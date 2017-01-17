@@ -33,20 +33,6 @@ public class PathCalculator
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));            
             else if (_calcLook == Look.DOWN)
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
-            else if (_calcLook == Look.LEFT)
-            {
-                if (_calcCurrent.x == 0)
-                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, location));
-
-                if (_calcCurrent.y > 0)
-                {
-                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.LEFT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, calcLoc(location, 1, -1)));
-                } else {
-                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.RIGHT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, calcLoc(location, 1, 1)));
-                }
-            }
         }
         else if (turnDirection == Look.UP)
         {
@@ -54,20 +40,6 @@ public class PathCalculator
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));            
             else if (_calcLook == Look.RIGHT)
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
-            else if (_calcLook == Look.DOWN)
-            {
-                if (_calcCurrent.y == 0)
-                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, location));
-
-                if (_calcCurrent.x > 0)
-                {    
-                    toReturn.add(new LookPathLocation(Look.LEFT, PathItem.RIGHT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, calcLoc(location, -1, -1)));                    
-                } else {
-                    toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.LEFT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, calcLoc(location, 1, -1)));
-                }
-            }
         }
         else if (turnDirection == Look.LEFT)
         {
@@ -75,20 +47,6 @@ public class PathCalculator
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));            
             else if (_calcLook == Look.DOWN)
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
-            else if (_calcLook == Look.RIGHT)
-            {
-                if (_calcCurrent.x >= _width - 1)
-                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.DOWN, location));
-
-                if (_calcCurrent.y >= _height - 1)
-                { 
-                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.RIGHT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, calcLoc(location, -1, -1)));
-                } else {
-                    toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.LEFT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, calcLoc(location, -1, 1)));
-                }
-            }
         }
         else if (turnDirection == Look.DOWN)
         {
@@ -96,19 +54,6 @@ public class PathCalculator
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));            
             else if (_calcLook == Look.RIGHT)
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
-            else if (_calcLook == Look.UP)
-            {
-                if (_calcCurrent.y >= _height - 1)
-                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.DOWN, location));
-
-                if (_calcCurrent.x > 0) {
-                    toReturn.add(new LookPathLocation(Look.LEFT, PathItem.LEFT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, calcLoc(location, -1, -1)));
-                } else {
-                    toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.RIGHT, location));
-                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, calcLoc(location, 1, -1)));
-                }                
-            }
         }
         if (toReturn.size() == 0)
             return null;
@@ -141,46 +86,51 @@ public class PathCalculator
         ArrayList<LookPathLocation> toReturn = new ArrayList<LookPathLocation>();
         LookPathLocation _lPCalc;
         _calcCurrent = _current;
-        while (true)
-        {
-            for (Point p : end)        
-            {   
-                int offset = 0;         
+        for (Point p : end)        
+        {   
+            int offset = 0;         
 
-                if (p.x > _calcCurrent.x)             
-                {
-                    offset = turn(Look.RIGHT, toReturn, _calcCurrent);
-                    if (offset == -2) continue;
-                    for (int x = _calcCurrent.x; x < p.x + offset; x++)
+            if (p.x > _calcCurrent.x)             
+            {
+                offset = turn(Look.RIGHT, toReturn, _calcCurrent);
+                for (int x = _calcCurrent.x; x < p.x + offset; x++)
+                    if (_calcLook == Look.RIGHT)
                         toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(x, _calcCurrent.y)));         
-                }
-                else if (p.x < _calcCurrent.x)
-                {
-                    offset = turn(Look.LEFT, toReturn, _calcCurrent);
-                    if (offset == -2) continue;
-                    for (int x = _calcCurrent.x; x + offset > p.x ; x--)
-                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(x, _calcCurrent.y)));
-                }
-
-                if (p.y > _calcCurrent.y)            
-                {
-                    offset = turn(Look.UP, toReturn, _calcCurrent);
-                    if (offset == -2) continue;
-                    for (int y = _calcCurrent.y; y < p.y + offset; y++)
-                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
-                }
-                else if (p.y < _calcCurrent.y)                           
-                {
-                    offset = turn(Look.DOWN, toReturn, _calcCurrent);
-                    if (offset == -2) continue;
-                    for (int y = _calcCurrent.y; y + offset > p.y; y--)
-                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
-                }
-                _calcCurrent = p;
+                    else
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, new Point(x, _calcCurrent.y)));                             
             }
-            CurrentPath = toReturn;
-            return toReturn;
+            else if (p.x < _calcCurrent.x)
+            {
+                offset = turn(Look.LEFT, toReturn, _calcCurrent);
+                for (int x = _calcCurrent.x; x + offset > p.x ; x--)
+                    if (_calcLook == Look.LEFT)
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(x, _calcCurrent.y)));
+                    else
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, new Point(x, _calcCurrent.y)));
+            }
+
+            if (p.y > _calcCurrent.y)            
+            {
+                offset = turn(Look.UP, toReturn, _calcCurrent);
+                for (int y = _calcCurrent.y; y < p.y + offset; y++)
+                    if (_calcLook == Look.UP)
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
+                    else
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, new Point(_calcCurrent.x, y)));            
+            }
+            else if (p.y < _calcCurrent.y)                           
+            {
+                offset = turn(Look.DOWN, toReturn, _calcCurrent);
+                for (int y = _calcCurrent.y; y + offset > p.y; y--)                        
+                    if (_calcLook == Look.DOWN)
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));            
+                    else
+                        toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.UP, new Point(_calcCurrent.x, y)));                                 
+            }
+            _calcCurrent = p;
         }
+        CurrentPath = toReturn;
+        return toReturn;
     }
 
     private void checkPoints()
