@@ -14,8 +14,9 @@ public class Startup
         CollisionDetection.start();
 
         // PathCalculator MOET ALTIJD WORDEN GEÏNITALISEERD AAN EEN RAND, dus of x of y 0.
-        PathCalculator p = new PathCalculator(0, 1, 8, 8);    
-        LightSensor.startAutoDrive();
+        PathCalculator p = new PathCalculator(0, 1, 8, 8);
+        p.calcPath(new Point(0, 5), new Point(3, 4));
+        
         while (true)
            RemoteListener.startReading();        
     }
