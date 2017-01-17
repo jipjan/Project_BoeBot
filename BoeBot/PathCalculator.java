@@ -23,48 +23,96 @@ public class PathCalculator
         _height = height;
     }
 
-    private LookPathLocation turnCalc(Look turnDirection, Point location)
+    private ArrayList<LookPathLocation> turnCalc(Look turnDirection, Point location)
     {
+        ArrayList<LookPathLocation> toReturn = new ArrayList<LookPathLocation>();
         if (turnDirection == _calcLook) return null;
         if (turnDirection == Look.RIGHT)
         {
             if (_calcLook == Look.UP)            
-                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);            
-            if (_calcLook == Look.DOWN)
-                return new LookPathLocation(turnDirection, PathItem.LEFT, location);
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));            
+            else if (_calcLook == Look.DOWN)
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+            else if (_calcLook == Look.LEFT)
+            {
+                if (_calcCurrent.x == 0)
+                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, location));
+
+                if (_calcCurrent.y > 0)
+                {
+                    toReturn.add(new LookPathLocation(Look.UP, PathItem.LEFT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+                } else {
+                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.RIGHT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
+                }
+            }
         }
         else if (turnDirection == Look.UP)
         {
             if (_calcLook == Look.LEFT)            
-                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);            
-            if (_calcLook == Look.RIGHT)
-                return new LookPathLocation(turnDirection, PathItem.LEFT, location);
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));            
+            else if (_calcLook == Look.RIGHT)
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+            else if (_calcLook == Look.DOWN)
+            {
+                if (_calcCurrent.y == 0)
+                    toReturn.add(new LookPathLocation(Look.EMPTY, PathItem.DOWN, location));
+
+                if (_calcCurrent.x > 0)
+                {    
+                    toReturn.add(new LookPathLocation(Look.LEFT, PathItem.RIGHT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));                    
+                } else {
+                    toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.LEFT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+                }
+            }
         }
         else if (turnDirection == Look.LEFT)
         {
             if (_calcLook == Look.UP)            
-                return new LookPathLocation(turnDirection, PathItem.LEFT, location);            
-            if (_calcLook == Look.DOWN)
-                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));            
+            else if (_calcLook == Look.DOWN)
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
+            else if (_calcLook == Look.RIGHT)
+            {
+                if (_calcCurrent.x >= _width - 1)
+                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.DOWN, location));
+
+                if (_calcCurrent.y >= _height - 1)
+                { 
+                    toReturn.add(new LookPathLocation(Look.LEFT, PathItem.RIGHT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
+                } else {
+                    toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.LEFT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+                }
+            }
         }
         else if (turnDirection == Look.DOWN)
         {
             if (_calcLook == Look.LEFT)            
-                return new LookPathLocation(turnDirection, PathItem.LEFT, location);            
-            if (_calcLook == Look.RIGHT)
-                return new LookPathLocation(turnDirection, PathItem.RIGHT, location);
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));            
+            else if (_calcLook == Look.RIGHT)
+                toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
         }
-        return null;
+        if (toReturn.size() == 0)
+            return null;
+        return toReturn;
     }
 
     private int turn(Look turnDirection, ArrayList<LookPathLocation> list, Point location)
     {
-        LookPathLocation _lPCalc = turnCalc(turnDirection, location);
+        ArrayList<LookPathLocation> _lPCalc = turnCalc(turnDirection, location);
         if (_lPCalc != null)
         {
-            _calcLook = _lPCalc.getLook();
-            list.add(_lPCalc);
-            return -1;
+            for (LookPathLocation i : _lPCalc)
+            {
+                _calcLook = i.getLook();
+                list.add(i);
+                return -1;
+            }
         }
         return 0;
     }
@@ -107,7 +155,7 @@ public class PathCalculator
         CurrentPath = toReturn;
         return toReturn;
     }
-    
+
     public static Stack<LookPathLocation> getPathAsLookSpeedStack(ArrayList<LookPathLocation> list)
     {
         Stack<LookPathLocation> s = new Stack<LookPathLocation>();
@@ -115,7 +163,7 @@ public class PathCalculator
             s.push(list.get(i));
         return s;
     }
-    
+
     public static void jukeMeister(Point locToAvoid, Point locToDriveTo)
     {
     }    
@@ -129,17 +177,17 @@ public class PathCalculator
     {
         _currentLook = l;
     }
-    
+
     public static Point getCurrentLocation()
     {
         return _current;
     } 
-    
+
     public static void setCurrentLocation(Point p)
     {
         _current = p;
     }
-    
+
     public static String pathToString()
     {
         String s = "";
