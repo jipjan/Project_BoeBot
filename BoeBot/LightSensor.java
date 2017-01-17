@@ -66,9 +66,11 @@ public class LightSensor
     private static void crossRoad()
     {
         System.out.println("Triggered!");
-        if (_speedStack.peek() == null)        
+        if (_speedStack.empty()){
+            System.out.println("done");
+            //stopAutoDrive();
             Engines.breakBot();  
-        else
+        }else
         {
             LookPathLocation ls = _speedStack.pop();
             Engines.setSpeed(ls.getSpeed(), true);

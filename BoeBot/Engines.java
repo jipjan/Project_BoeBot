@@ -67,7 +67,7 @@ public class Engines
     {        
         if (_speedTimer != null) _speedTimer.cancel(true);
         LightSensor.stopAutoDrive();  
-        setSpeed(Speed.STOP);
+        setSpeed(Speed.STOP,true);
     }
 
     /*
