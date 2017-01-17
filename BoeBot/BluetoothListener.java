@@ -14,9 +14,7 @@ public class BluetoothListener extends BaseListener
             {
                 if (conn.available() <= 0) return;
                 char data = (char) conn.readByte();                
-                if (data == Constants.BEGIN_END_PATH_CHAR)
-                    pathHandling(data);
-                else if (data == Constants.BEGIN_END_COORDINATE_CHAR)
+                if (data == Constants.BEGIN_END_COORDINATE_CHAR)
                     pointHandling(data);
                 else
                     driveHandling(data);
@@ -29,20 +27,20 @@ public class BluetoothListener extends BaseListener
         List<LookPathLocation> list = PathCalculator.CurrentPath;
         list.clear();
         // Rewrite dis shiet
-        
+
         /*
         do 
         {
-            switch (data)
-            {
-                case 'w': list.add(new LookPathLocation(Look.EMPTY, PathItem.UP)); break;
-                case 'a': list.add(new LookPathLocation(Look.EMPTY, PathItem.LEFT)); break;
-                case 'd': list.add(new LookPathLocation(Look.EMPTY, PathItem.RIGHT)); break;
-            }
-            data = (char) conn.readByte();
+        switch (data)
+        {
+        case 'w': list.add(new LookPathLocation(Look.EMPTY, PathItem.UP)); break;
+        case 'a': list.add(new LookPathLocation(Look.EMPTY, PathItem.LEFT)); break;
+        case 'd': list.add(new LookPathLocation(Look.EMPTY, PathItem.RIGHT)); break;
+        }
+        data = (char) conn.readByte();
         } while (data != Constants.BEGIN_END_PATH_CHAR);
-        */
-       
+         */
+
         System.out.println("Path Received: " + PathCalculator.pathToString());
         LightSensor.stopAutoDrive();
         LightSensor.startAutoDrive();
@@ -73,18 +71,24 @@ public class BluetoothListener extends BaseListener
 
     private static void pointHandling(char data)
     {
-        LightSensor.stopAutoDrive();
         int xS = conn.readByte() - 48;
+        conn.readByte();
         int yS = conn.readByte() - 48;
+        
         List<Point> points = new ArrayList<Point>();
         data = (char) conn.readByte();
-        do 
+        if (data == ' ')
         {
-            int xE = data - 48;
-            int yE = conn.readByte() - 48;
-            points.add(new Point(xE, yE));
-            data = (char) conn.readByte();
-        } while (data != Constants.BEGIN_END_PATH_CHAR);
+            do 
+            {
+                int xE = conn.readByte() - 48;
+                conn.readByte();
+                int yE = conn.readByte() - 48;
+                points.add(new Point(xE, yE));
+                data = (char) conn.readByte();
+            } while (data != Constants.BEGIN_END_COORDINATE_CHAR);
+        }
+
         PathCalculator p = new PathCalculator(xS, yS, 6, 8);
         p.calcPath(points.toArray(new Point[points.size()]));
         LightSensor.stopAutoDrive();
