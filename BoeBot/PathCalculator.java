@@ -96,6 +96,19 @@ public class PathCalculator
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));            
             else if (_calcLook == Look.RIGHT)
                 toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
+            else if (_calcLook == Look.UP)
+            {
+                if (_calcCurrent.y >= _height - 1)
+                    toReturn.add(new LookPathLocation(Look.DOWN, PathItem.DOWN, location));
+                
+                if (_calcCurrent.x > 0) {
+                    toReturn.add(new LookPathLocation(Look.LEFT, PathItem.LEFT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.LEFT, location));
+                } else {
+                    toReturn.add(new LookPathLocation(Look.RIGHT, PathItem.RIGHT, location));
+                    toReturn.add(new LookPathLocation(turnDirection, PathItem.RIGHT, location));
+                }                
+            }
         }
         if (toReturn.size() == 0)
             return null;
@@ -110,9 +123,9 @@ public class PathCalculator
             for (LookPathLocation i : _lPCalc)
             {
                 _calcLook = i.getLook();
-                list.add(i);
-                return -1;
+                list.add(i);                
             }
+            return -1;
         }
         return 0;
     }
