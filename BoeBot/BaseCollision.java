@@ -2,7 +2,7 @@ import TI.*;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 
-public class BaseCollision
+public class BaseCollision // zet Ultrasoon&Whiskers aan en stopt Boebot als ze botsen.
 {
     protected boolean _collided;
     protected ScheduledFuture<?> _timer;

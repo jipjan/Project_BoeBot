@@ -7,7 +7,7 @@ import java.util.concurrent.*;
  * 
  * @author Groep B1
  */
-public class Ultrasoon extends BaseCollision
+public class Ultrasoon extends BaseCollision //
 {
     public static final Ultrasoon Instance = new Ultrasoon();
     

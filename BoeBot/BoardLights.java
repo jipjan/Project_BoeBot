@@ -8,13 +8,16 @@ import java.awt.*;
  * 
  * @author Groep B1
  */
-public class BoardLights
+public class BoardLights 
+/*
+     * Laat de Boebot zijn LED lampjes branden bij verschillende acties.
+*/
 {   
     private static ScheduledFuture<?> _lights;    
     private static boolean _on = true;
 
     public static void alarmLights()
-    {
+    { //knipperend rood voor stop.
         stop();
         _lights = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
             {
@@ -32,7 +35,7 @@ public class BoardLights
     }
 
     public static void rightLights()
-    {
+    {   // knipperent geel als de Boebot naar rechts rijd.
         stop();
         _lights = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
             {
@@ -48,7 +51,7 @@ public class BoardLights
     }
 
     public static void leftLights()
-    {
+    {   // knipperent geel als de Boebot naar links rijd.
         stop();
         _lights = TimerHandler.Timer.scheduleWithFixedDelay(() -> 
             {

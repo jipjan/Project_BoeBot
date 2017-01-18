@@ -6,7 +6,7 @@ import java.awt.Point;
  * Startup start de bot.
  * @author Groep B1
  */
-public class Startup
+public class Startup // is de main klass en roept de volgende klasses aan.
 {
     public static void main(String[] args)
     {
